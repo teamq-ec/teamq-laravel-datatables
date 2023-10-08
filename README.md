@@ -133,6 +133,9 @@ of that enum or state and not by the number, then you can use `CaseSort`.
 
 You must pass an array `[$key => $value]`, which will be used to generate the sort.
 
+As a second parameter you can specify the type of `Join` that you want to use, if the ordering is by the field of a
+related model. By default, it is `Inner Join`.
+
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
