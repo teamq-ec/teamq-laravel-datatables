@@ -38,6 +38,13 @@ return [
 
 ### Filters
 
+| Filter | Class                                     |
+|--------|-------------------------------------------|
+| Text   | `TeamQ\QueryBuilder\Filters\TextFilter`   |
+| Number | `TeamQ\QueryBuilder\Filters\NumberFilter` |
+| Date   | `TeamQ\QueryBuilder\Filters\DateFilter`   |
+| Global | `TeamQ\QueryBuilder\Filters\GlobalFilter` |
+
 You can use advanced filters that have support for multiple comparison operators.
 The available comparison operators are located in `TeamQ\QueryBuilder\Enums\Comparators`
 
@@ -73,15 +80,6 @@ QueryBuilder::for(Book::class)
         ]);
 ```
 
-##### Available filters:
-
-| Filter | Class                                     |
-|--------|-------------------------------------------|
-| Text   | `TeamQ\QueryBuilder\Filters\TextFilter`   |
-| Number | `TeamQ\QueryBuilder\Filters\NumberFilter` |
-| Date   | `TeamQ\QueryBuilder\Filters\DateFilter`   |
-| Global | `TeamQ\QueryBuilder\Filters\GlobalFilter` |
-
 #### Global Filter
 
 The global filter implements general search functionality for the model and its relationships.
@@ -107,10 +105,15 @@ QueryBuilder::for(Book::class)
 
 ### Sorts
 
+| Sort     | Class                                   |
+|----------|-----------------------------------------|
+| Relation | `TeamQ\QueryBuilder\Sorts\RelationSort` |
+| Case     | `TeamQ\QueryBuilder\Sorts\CaseSort`     |
+
 #### RelationSort
 
 To sort by fields of related tables you must use `join`, there is no easy way to do it from eloquent,
-so you can use `TeamQ\QueryBuilder\Sorts\RelationSort`, this class receives the type of `join` as a parameter.
+so you can use `RelationSort`, this class receives the type of `join` as a parameter.
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
@@ -126,7 +129,7 @@ QueryBuilder::for(Book::class)
 #### CaseSort
 
 If you use enums or states, where each enum or state is represented by a number, you may want to sort by name
-of that enum or state and not by the number, then you can use `TeamQ\QueryBuilder\Sorts\CaseSort`.
+of that enum or state and not by the number, then you can use `CaseSort`.
 
 You must pass an array `[$key => $value]`, which will be used to generate the sort.
 
