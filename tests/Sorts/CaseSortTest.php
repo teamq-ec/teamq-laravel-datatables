@@ -42,7 +42,11 @@ it('sorts the records in ascending order', function () {
             AllowedSort::custom('classification', new CaseSort($cases)),
         ]);
 
-    expect($queryBuilder->get())
+    expect($queryBuilder->toSql())
+        ->toBe(
+            "select * from `books` order by case when books.classification = 1 then 'SuitableForAll' when books.classification = 2 then 'Kids' when books.classification = 3 then 'OverTwelveYearsOld' when books.classification = 4 then 'Adults' end  asc"
+        )
+        ->and($queryBuilder->get())
         ->sequence(
             fn ($book) => $book->classification->toBe(BookClassificationEnum::Adults),
             fn ($book) => $book->classification->toBe(BookClassificationEnum::OverTwelveYearsOld),
@@ -63,7 +67,11 @@ it('sorts the records in descending order', function () {
             AllowedSort::custom('classification', new CaseSort($cases)),
         ]);
 
-    expect($queryBuilder->get())
+    expect($queryBuilder->toSql())
+        ->toBe(
+            "select * from `books` order by case when books.classification = 1 then 'SuitableForAll' when books.classification = 2 then 'Kids' when books.classification = 3 then 'OverTwelveYearsOld' when books.classification = 4 then 'Adults' end  desc"
+        )
+        ->and($queryBuilder->get())
         ->sequence(
             fn ($book) => $book->classification->toBe(BookClassificationEnum::OverTwelveYearsOld),
             fn ($book) => $book->classification->toBe(BookClassificationEnum::Adults),
