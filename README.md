@@ -5,7 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-spatie-filters/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-spatie-filters/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/teamq-ec/teamq-laravel-spatie-filters.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-spatie-filters)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This is a collection of classes for filters and sorts, extending from the `spatie/laravel-query-builder` package,
+in addition to providing the possibility of applying these filters and sorting in related models using join through
+from the `kirschbaum-development/eloquent-power-joins` package.
 
 ## Installation
 
@@ -34,7 +36,74 @@ return [
 
 ## Usage
 
-WIP
+### Filters
+
+You can use advanced filters that have support for multiple comparison operators.
+The available comparison operators are located in `TeamQ\QueryBuilder\Enums\Comparators`
+
+To use these advanced filters, just call them as custom filters:
+
+```php
+GET /books?filter[isbn][value]=54213&filter[isbn][operator]=5
+```
+
+```php
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+use TeamQ\QueryBuilder\Filters\TextFilter;
+
+QueryBuilder::for(Book::class)
+        ->allowedFilters([
+            AllowedFilter::custom('isbn', new TextFilter()),
+        ]);
+```
+
+If you want to handle relationships using join, you must pass `false` as the first parameter to the filter
+and pass the type of `join` to use.
+
+```php
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+use TeamQ\QueryBuilder\Filters\TextFilter;
+use TeamQ\QueryBuilder\Enums\JoinType;
+
+QueryBuilder::for(Book::class)
+        ->allowedFilters([
+            AllowedFilter::custom('isbn', new TextFilter(false, JoinType::Inner)),
+        ]);
+```
+
+##### Available filters:
+
+| Filter | Class                                     |
+|--------|-------------------------------------------|
+| Text   | `TeamQ\QueryBuilder\Filters\TextFilter`   |
+| Number | `TeamQ\QueryBuilder\Filters\NumberFilter` |
+| Date   | `TeamQ\QueryBuilder\Filters\DateFilter`   |
+| Global | `TeamQ\QueryBuilder\Filters\GlobalFilter` |
+
+#### Global Filter
+
+The global filter implements general search functionality for the model and its relationships.
+
+This is not a global search engine between entities!!!
+For that you can use the package [spatie/laravel-searchable](https://github.com/spatie/laravel-searchable)
+
+To use this filter, you must pass the model fields to be filtered or their relationships.
+
+```php
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+use TeamQ\QueryBuilder\Filters\GlobalFilter;
+
+QueryBuilder::for(Book::class)
+        ->allowedFilters([
+            AllowedFilter::custom('search', new GlobalFilter([
+                'author.name',
+                'title',
+            ])),
+        ]);
+```
 
 ## Testing
 
