@@ -69,3 +69,7 @@ it('sorts the records in descending order', function () {
             fn ($book) => $book->classification->toBe(BookClassificationEnum::Adults),
         );
 });
+
+it('sort records by relationship fields', function () {
+
+})->skip('WIP');

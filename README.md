@@ -105,6 +105,47 @@ QueryBuilder::for(Book::class)
         ]);
 ```
 
+### Sorts
+
+#### RelationSort
+
+To sort by fields of related tables you must use `join`, there is no easy way to do it from eloquent,
+so you can use `TeamQ\QueryBuilder\Sorts\RelationSort`, this class receives the type of `join` as a parameter.
+
+```php
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+use TeamQ\QueryBuilder\Sorts\RelationSort;
+
+QueryBuilder::for(Book::class)
+        ->allowedSorts([
+            AllowedSort::custom('author.name', new RelationSort(JoinType::Inner)),
+        ])
+```
+
+#### CaseSort
+
+If you use enums or states, where each enum or state is represented by a number, you may want to sort by name
+of that enum or state and not by the number, then you can use `TeamQ\QueryBuilder\Sorts\CaseSort`.
+
+You must pass an array `[$key => $value]`, which will be used to generate the sort.
+
+```php
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+use TeamQ\QueryBuilder\Sorts\CaseSort;
+
+QueryBuilder::for(Book::class)
+        ->allowedSorts([
+            AllowedSort::custom('state', new CaseSort([
+                1 => 'Active',
+                2 => 'Rejected',
+                3 => 'Deleted',
+                4 => 'Completed',
+            ])),
+        ]);
+```
+
 ## Testing
 
 Can use docker-compose to run
