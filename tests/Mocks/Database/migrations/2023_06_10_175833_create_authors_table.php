@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email', 254);
             $table->unsignedTinyInteger('order')->default(0);
+            $table->unsignedTinyInteger('type')->nullable();
             $table->timestamps();
         });
     }
