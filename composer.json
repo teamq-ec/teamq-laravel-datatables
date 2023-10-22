@@ -64,7 +64,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "QueryBuilderServiceProvider"
+                "TeamQ\\QueryBuilder\\QueryBuilderServiceProvider"
             ]
         }
     },
