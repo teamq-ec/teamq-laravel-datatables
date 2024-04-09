@@ -22,6 +22,7 @@ class RelationSort implements Sort
     public function __construct(
         private readonly JoinType $joinType = JoinType::Inner,
         private readonly ?AggregationType $aggregationType = null,
+        private readonly array|string|null $joinAliases = null,
     ) {
     }
 
@@ -39,7 +40,8 @@ class RelationSort implements Sort
                 $property,
                 $descending ? 'desc' : 'asc',
                 $this->aggregationType?->value,
-                $this->joinType->value
+                $this->joinType->value,
+                $this->joinAliases,
             );
     }
 }
