@@ -5,6 +5,7 @@ namespace Tests\Mocks\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Tests\Mocks\Database\Factories\AuthorFactory;
 use Tests\Mocks\Enums\AuthorTypeEnum;
 
@@ -26,5 +27,10 @@ class Author extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
     }
 }
