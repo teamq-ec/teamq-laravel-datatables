@@ -118,7 +118,11 @@ abstract class Filter implements IFilter
 
         $query->joinRelationship($relationName, $this->joinAliases, $this->joinType->value);
 
-        $this->relationConstraints[] = $property = $relation->qualifyColumn($property);
+        if (is_string($this->joinAliases)) {
+            $this->relationConstraints[] = $property = $this->joinAliases.'.'.$property;
+        } else {
+            $this->relationConstraints[] = $property = $relation->qualifyColumn($property);
+        }
 
         $this->__invoke($query, $value, $property);
     }
