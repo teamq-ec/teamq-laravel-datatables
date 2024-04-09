@@ -54,5 +54,10 @@ it('apply relationships using aliases that point to the same table', function ()
     expect($queryBuilder->toSql())
         ->toBe(
             'select `flights`.* from `flights` inner join `countries` as `departure` on `flights`.`departure_id` = `departure`.`id` inner join `countries` as `arrival` on `flights`.`arrival_id` = `arrival`.`id` where lower(`departure`.`name`) like ? and lower(`arrival`.`name`) like ?'
+        )
+        ->and($queryBuilder->get())
+        ->toHaveCount(1)
+        ->sequence(
+            fn ($flight) => $flight->code->toBe('7485')
         );
 });
