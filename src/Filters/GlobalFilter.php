@@ -5,6 +5,7 @@ namespace TeamQ\QueryBuilder\Filters;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Kirschbaum\PowerJoins\FakeJoinCallback;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Filters\Filter;
 use TeamQ\QueryBuilder\Concerns\HasPropertyRelationship;
@@ -23,16 +24,23 @@ class GlobalFilter implements Filter
 
     protected readonly array $fields;
 
+    protected readonly array|string|null $joinAliases;
+
     protected ?JoinType $joinType = null;
 
     /**
      * @param  array<string|Expression>  $fields
      */
-    public function __construct(array $fields, bool $addRelationConstraint = true, JoinType $joinType = null)
-    {
+    public function __construct(
+        array $fields,
+        bool $addRelationConstraint = true,
+        JoinType $joinType = null,
+        array|string|null $joinAliases = null
+    ) {
         $this->fields = $fields;
         $this->addRelationConstraint = $addRelationConstraint;
         $this->joinType = $joinType;
+        $this->joinAliases = $joinAliases;
     }
 
     /**
@@ -123,9 +131,13 @@ class GlobalFilter implements Filter
             $relation = $relation->getRelation($partial);
         }
 
-        $query->joinRelationship($relationName, joinType: $this->joinType->value);
+        $query->joinRelationship($relationName, $this->joinAliases, $this->joinType->value);
 
-        $this->relationConstraints[] = $relation->qualifyColumn($property);
+        if (is_string($this->joinAliases)) {
+            $this->relationConstraints[] = $this->joinAliases.'.'.$property;
+        } else {
+            $this->relationConstraints[] = $relation->qualifyColumn($property);
+        }
     }
 
     /**
