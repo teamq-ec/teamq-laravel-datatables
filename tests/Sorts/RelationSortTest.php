@@ -170,7 +170,7 @@ it('sort the records in descending order using the "HasMany" relationship with a
         ]);
 
     expect($queryBuilder->toSql())
-        ->toBe("select `books`.*, sum(chapters_alias.number) as chapters_alias_number_sum from `books` left join `chapters` as `chapters_alias` on `chapters_alias`.`book_id` = `books`.`id` group by `books`.`id` order by chapters_alias_number_sum desc")
+        ->toBe('select `books`.*, sum(chapters_alias.number) as chapters_alias_number_sum from `books` left join `chapters` as `chapters_alias` on `chapters_alias`.`book_id` = `books`.`id` group by `books`.`id` order by chapters_alias_number_sum desc')
         ->and($queryBuilder->get())
         ->sequence(
             fn ($book) => $book->title->toBe('Laravel Beyond Crud'),
@@ -194,7 +194,7 @@ it('sort the records in descending order using the multiple relationship aliases
         ]);
 
     expect($queryBuilder->toSql())
-        ->toBe("select `countries`.* from `countries` inner join `authors` as `authors_alias` on `authors_alias`.`country_id` = `countries`.`id` inner join `books` as `books_alias` on `books_alias`.`author_id` = `authors_alias`.`id` order by `books_alias`.`order` asc")
+        ->toBe('select `countries`.* from `countries` inner join `authors` as `authors_alias` on `authors_alias`.`country_id` = `countries`.`id` inner join `books` as `books_alias` on `books_alias`.`author_id` = `authors_alias`.`id` order by `books_alias`.`order` asc')
         ->and($queryBuilder->get())
         ->sequence(
             fn ($country) => $country->code->toBe('US'),
