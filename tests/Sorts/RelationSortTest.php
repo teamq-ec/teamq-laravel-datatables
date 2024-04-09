@@ -32,6 +32,7 @@ beforeEach(function () {
             'isbn' => '758952123',
             'pages' => 38,
             'classification' => BookClassificationEnum::OverTwelveYearsOld,
+            'order' => 5,
         ]);
 
     $this->secondBook = Book::factory()
@@ -50,6 +51,7 @@ beforeEach(function () {
             'isbn' => '5895421369',
             'pages' => 45,
             'classification' => BookClassificationEnum::Adults,
+            'order' => 3,
         ]);
 });
 
@@ -152,5 +154,50 @@ it('sort the records in descending order using the "HasMany" relationship with a
         ->sequence(
             fn ($book) => $book->title->toBe('Laravel Beyond Crud'),
             fn ($book) => $book->title->toBe('Domain Driven Design for Laravel'),
+        );
+});
+
+it('sort the records in descending order using the "HasMany" relationship with aliases', function () {
+    $this->request->query->add([
+        'sort' => '-chapters.number',
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Book::class, $this->request)
+        ->allowedSorts([
+            AllowedSort::custom('chapters.number',
+                new RelationSort(JoinType::Left, AggregationType::Sum, 'chapters_alias')
+            ),
+        ]);
+
+    expect($queryBuilder->toSql())
+        ->toBe('select `books`.*, sum(chapters_alias.number) as chapters_alias_number_sum from `books` left join `chapters` as `chapters_alias` on `chapters_alias`.`book_id` = `books`.`id` group by `books`.`id` order by chapters_alias_number_sum desc')
+        ->and($queryBuilder->get())
+        ->sequence(
+            fn ($book) => $book->title->toBe('Laravel Beyond Crud'),
+            fn ($book) => $book->title->toBe('Domain Driven Design for Laravel'),
+        );
+});
+
+it('sort the records in descending order using the multiple relationship aliases', function () {
+    $this->request->query->add([
+        'sort' => 'authors.books.order',
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Country::class, $this->request)
+        ->allowedSorts([
+            AllowedSort::custom('authors.books.order',
+                new RelationSort(JoinType::Inner, joinAliases: [
+                    'authors' => fn ($join) => $join->as('authors_alias'),
+                    'books' => fn ($join) => $join->as('books_alias'),
+                ])
+            ),
+        ]);
+
+    expect($queryBuilder->toSql())
+        ->toBe('select `countries`.* from `countries` inner join `authors` as `authors_alias` on `authors_alias`.`country_id` = `countries`.`id` inner join `books` as `books_alias` on `books_alias`.`author_id` = `authors_alias`.`id` order by `books_alias`.`order` asc')
+        ->and($queryBuilder->get())
+        ->sequence(
+            fn ($country) => $country->code->toBe('US'),
+            fn ($country) => $country->code->toBe('BE'),
         );
 });

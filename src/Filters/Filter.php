@@ -16,8 +16,6 @@ abstract class Filter implements IFilter
 {
     use HasPropertyRelationship;
 
-    protected ?JoinType $joinType = null;
-
     protected const ARRAY_OPERATORS = [];
 
     /**
@@ -39,10 +37,12 @@ abstract class Filter implements IFilter
     /**
      * Filter constructor.
      */
-    public function __construct(bool $addRelationConstraint = true, JoinType $joinType = null)
-    {
+    public function __construct(
+        bool $addRelationConstraint = true,
+        private readonly ?JoinType $joinType = null,
+        private readonly array|string|null $joinAliases = null,
+    ) {
         $this->addRelationConstraint = $addRelationConstraint;
-        $this->joinType = $joinType;
     }
 
     /**
@@ -116,9 +116,13 @@ abstract class Filter implements IFilter
             $relation = $relation->getRelation($partial);
         }
 
-        $query->joinRelationship($relationName, joinType: $this->joinType->value);
+        $query->joinRelationship($relationName, $this->joinAliases, $this->joinType->value);
 
-        $this->relationConstraints[] = $property = $relation->qualifyColumn($property);
+        if (is_string($this->joinAliases)) {
+            $this->relationConstraints[] = $property = $this->joinAliases.'.'.$property;
+        } else {
+            $this->relationConstraints[] = $property = $relation->qualifyColumn($property);
+        }
 
         $this->__invoke($query, $value, $property);
     }
