@@ -2,9 +2,9 @@ name: run-tests
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   test:
@@ -13,12 +13,15 @@ jobs:
       fail-fast: true
       matrix:
         os: [ ubuntu-latest ]
-        php: [ 8.2 ]
-        laravel: [ 10.* ]
+        php: [ 8.2, 8.3 ]
+        laravel: [ 10.*, 11.* ]
         stability: [ prefer-stable ]
         include:
           - laravel: 10.*
             testbench: 8.*
+            carbon: ^2.63
+          - laravel: 11.*
+            testbench: 9.*
             carbon: ^2.63
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
@@ -29,7 +32,7 @@ jobs:
         env:
           MYSQL_USER: user
           MYSQL_PASSWORD: secret
-          MYSQL_DATABASE: laravel-query-builder-powered
+          MYSQL_DATABASE: testing
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306

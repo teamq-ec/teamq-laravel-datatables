@@ -1,23 +1,24 @@
-version: "3.6"
-
 services:
   app:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: laravel-query-builder-powered
+    container_name: laravel-datatable-api
     volumes:
       - ".:/var/www/html"
     depends_on:
       - mysql
+    networks:
+      - laravel-datatable-net
   mysql:
     image: 'mysql/mysql-server:8.0'
+    container_name: laravel-datatable-db
     ports:
       - '${FORWARD_DB_PORT:-3306}:3306'
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: 'laravel-query-builder-powered'
+      MYSQL_DATABASE: 'testing'
       MYSQL_USER: 'laravel'
       MYSQL_PASSWORD: 'laravel'
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
@@ -28,3 +29,8 @@ services:
         - ping
       retries: 3
       timeout: 5s
+    networks:
+      - laravel-datatable-net
+networks:
+  laravel-datatable-net:
+    driver: bridge

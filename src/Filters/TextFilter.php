@@ -13,6 +13,10 @@ use TeamQ\QueryBuilder\Enums\Comparators;
  */
 class TextFilter extends Filter
 {
+    /**
+     * Operators that receive values as arrays or should be filtered as an array.
+     * Ex: In, NotIn, Between, etc.
+     */
     protected const ARRAY_OPERATORS = [
         Comparators\Text::In,
         Comparators\Text::NotIn,
