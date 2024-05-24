@@ -16,7 +16,7 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="Luilliarcec Test Suite">
+        <testsuite name="Laravel Datatable API Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
