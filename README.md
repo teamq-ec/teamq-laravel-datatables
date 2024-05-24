@@ -5,9 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-spatie-filters/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-spatie-filters/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/teamq-ec/teamq-laravel-spatie-filters.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-spatie-filters)
 
-This is a collection of classes for filters and sorts, extending from the `spatie/laravel-query-builder` package,
+This is a collection of classes for filters and sorts, extending from the [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder) package,
 in addition to providing the possibility of applying these filters and sorting in related models using join through
-from the `kirschbaum-development/eloquent-power-joins` package.
+from the [kirschbaum-development/eloquent-power-joins](https://github.com/kirschbaum-development/eloquent-power-joins) package.
 
 ## Installation
 
