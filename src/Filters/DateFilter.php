@@ -13,6 +13,10 @@ use TeamQ\QueryBuilder\Enums\Comparators;
  */
 class DateFilter extends Filter
 {
+    /**
+     * Operators that receive values as arrays or should be filtered as an array.
+     * Ex: In, NotIn, Between, etc.
+     */
     protected const ARRAY_OPERATORS = [
         Comparators\Number::Between,
         Comparators\Number::NotBetween,

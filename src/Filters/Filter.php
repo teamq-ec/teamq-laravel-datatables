@@ -16,6 +16,10 @@ abstract class Filter implements IFilter
 {
     use HasPropertyRelationship;
 
+    /**
+     * Operators that receive values as arrays or should be filtered as an array.
+     * Ex: In, NotIn, Between, etc.
+     */
     protected const ARRAY_OPERATORS = [];
 
     /**
@@ -71,9 +75,14 @@ abstract class Filter implements IFilter
 
             if ($value !== false) {
                 if (is_array($value)) {
+                    // If the value received is an array of values and the operator we receive is an operator
+                    // of arrays, then this follows the normal flow.
                     if (in_array($operator, static::ARRAY_OPERATORS, true)) {
                         $this->handle($query, $value, $property, $operator);
                     } else {
+                        // But if it is not an array operator, then we encapsulate the query logic in
+                        // a subquery, applying the comparison operator provided for each of the
+                        // y values connected by "or".
                         $query->where(function (Builder $query) use ($value, $property, $operator) {
                             foreach ($value as $item) {
                                 $this->handle($query, $item, $property, $operator, 'or');
