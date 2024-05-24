@@ -32,7 +32,7 @@ jobs:
         env:
           MYSQL_USER: user
           MYSQL_PASSWORD: secret
-          MYSQL_DATABASE: laravel-query-builder-powered
+          MYSQL_DATABASE: testing
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306
