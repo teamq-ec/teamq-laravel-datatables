@@ -5,9 +5,11 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-datatables/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-datatables/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/teamq/laravel-datatables.svg?style=flat-square)](https://packagist.org/packages/teamq/laravel-datatables)
 
-This is a collection of classes for filters and sorts, extending from the [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder) package,
+This is a collection of classes for filters and sorts, extending from
+the [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder) package,
 in addition to providing the possibility of applying these filters and sorting in related models using join through
-from the [kirschbaum-development/eloquent-power-joins](https://github.com/kirschbaum-development/eloquent-power-joins) package.
+from the [kirschbaum-development/eloquent-power-joins](https://github.com/kirschbaum-development/eloquent-power-joins)
+package.
 
 ## Installation
 
@@ -61,12 +63,13 @@ $query->result();
 
 ### Filters
 
-| Filter | Class                                     | Operators |
-|--------|-------------------------------------------|-----------|
-| Text   | `TeamQ\Datatables\Filters\TextFilter`   | Text      |
-| Number | `TeamQ\Datatables\Filters\NumberFilter` | Number    |
-| Date   | `TeamQ\Datatables\Filters\DateFilter`   | Number    |
-| Global | `TeamQ\Datatables\Filters\GlobalFilter` | -         |
+| Filter          | Class                                            | Operators |
+|-----------------|--------------------------------------------------|-----------|
+| Text            | `TeamQ\Datatables\Filters\TextFilter`            | Text      |
+| Number          | `TeamQ\Datatables\Filters\NumberFilter`          | Number    |
+| Date            | `TeamQ\Datatables\Filters\DateFilter`            | Number    |
+| Global          | `TeamQ\Datatables\Filters\GlobalFilter`          | -         |
+| HasRelationship | `TeamQ\Datatables\Filters\HasRelationshipFilter` | -         |
 
 <details>
     <summary>Text comparison operators</summary>
@@ -235,6 +238,23 @@ For that you can use the package [spatie/laravel-searchable](https://github.com/
 To use this filter, you must pass the model fields to be filtered or their relationships.
 
 ```php
+GET /books?filter[search]='Luis'
+```
+
+```sql
+select *
+from `books`
+where (
+          exists (select *
+                  from `authors`
+                  where `books`.`author_id` = `authors`.`id`
+                    and lower(`authors`.`name`) LIKE '%Luis%')
+              or
+          lower(`books`.`title`) LIKE '%Luis%'
+          )
+```
+
+```php
 use Spatie\QueryBuilder\AllowedFilter;
 use TeamQ\Datatables\QueryBuilder;
 use TeamQ\Datatables\Filters\GlobalFilter;
@@ -248,12 +268,40 @@ QueryBuilder::for(Book::class)
         ]);
 ```
 
+#### _Has Relationship Filter_
+
+This filter accepts two possible values: 
+- `1` to filter by "Has"
+- `0` to filter by "Does not have"
+
+Use this filter when you want the user to be able to filter on records that have associated models/relationships,
+For example, you may be interested in obtaining all authors who have books.
+
+```php
+GET /books?filter[has_books]=1
+```
+
+```sql
+select * from `authors` where exists (select * from `books` where `authors`.`id` = `books`.`author_id`)
+```
+
+```php
+use Spatie\QueryBuilder\AllowedFilter;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\HasRelationshipFilter;
+
+QueryBuilder::for(Author::class)
+        ->allowedFilters([
+            AllowedFilter::custom('has_books', new HasRelationshipFilter(), 'books'),
+        ]);
+```
+
 ---
 
 ### Sorts
 
-| Sort     | Class                                   |
-|----------|-----------------------------------------|
+| Sort     | Class                                 |
+|----------|---------------------------------------|
 | Relation | `TeamQ\Datatables\Sorts\RelationSort` |
 | Case     | `TeamQ\Datatables\Sorts\CaseSort`     |
 
