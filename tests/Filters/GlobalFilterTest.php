@@ -3,8 +3,8 @@
 use Illuminate\Database\Query\Expression;
 use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
-use TeamQ\QueryBuilder\Enums\JoinType;
-use TeamQ\QueryBuilder\Filters\GlobalFilter;
+use TeamQ\Datatables\Enums\JoinType;
+use TeamQ\Datatables\Filters\GlobalFilter;
 use Tests\Mocks\Models\Author;
 use Tests\Mocks\Models\Book;
 use Tests\Mocks\Models\Chapter;

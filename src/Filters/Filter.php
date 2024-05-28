@@ -1,11 +1,11 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Filters;
+namespace TeamQ\Datatables\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\Filters\Filter as IFilter;
-use TeamQ\QueryBuilder\Concerns\HasPropertyRelationship;
-use TeamQ\QueryBuilder\Enums\JoinType;
+use TeamQ\Datatables\Concerns\HasPropertyRelationship;
+use TeamQ\Datatables\Enums\JoinType;
 
 /**
  * Filter Base Class.

@@ -1,6 +1,6 @@
 <?php
 
-use TeamQ\QueryBuilder\Enums\Comparators;
+use TeamQ\Datatables\Enums\Comparators;
 
 dataset('per-page-functions', [
     'paginate',

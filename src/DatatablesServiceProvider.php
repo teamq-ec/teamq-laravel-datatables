@@ -1,11 +1,11 @@
 <?php
 
-namespace TeamQ\QueryBuilder;
+namespace TeamQ\Datatables;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class QueryBuilderServiceProvider extends PackageServiceProvider
+class DatatablesServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -15,7 +15,7 @@ class QueryBuilderServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('teamq-query-builder')
-            ->hasConfigFile();
+            ->name('laravel-datatables-api')
+            ->hasConfigFile('datatables');
     }
 }

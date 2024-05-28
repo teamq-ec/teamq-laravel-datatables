@@ -3,7 +3,7 @@
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
-use TeamQ\QueryBuilder\Sorts\CaseSort;
+use TeamQ\Datatables\Sorts\CaseSort;
 use Tests\Mocks\Enums\AuthorTypeEnum;
 use Tests\Mocks\Enums\BookClassificationEnum;
 use Tests\Mocks\Models\Author;

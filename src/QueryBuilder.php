@@ -1,9 +1,9 @@
 <?php
 
-namespace TeamQ\QueryBuilder;
+namespace TeamQ\Datatables;
 
 use Spatie\QueryBuilder\QueryBuilder as BaseQueryBuilder;
-use TeamQ\QueryBuilder\Concerns\PerPageQuery;
+use TeamQ\Datatables\Concerns\PerPageQuery;
 
 /**
  * Overwrite the query builder base class and add support for the perPage parameter

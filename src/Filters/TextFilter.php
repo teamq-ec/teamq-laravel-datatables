@@ -1,8 +1,8 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Filters;
+namespace TeamQ\Datatables\Filters;
 
-use TeamQ\QueryBuilder\Enums\Comparators;
+use TeamQ\Datatables\Enums\Comparators;
 
 /**
  * Adds custom filter support for text with comparison operators.

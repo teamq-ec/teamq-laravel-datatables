@@ -1,6 +1,6 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Enums;
+namespace TeamQ\Datatables\Enums;
 
 /**
  * Enum join type.

@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Request;
-use TeamQ\QueryBuilder\QueryBuilder;
+use TeamQ\Datatables\QueryBuilder;
 use Tests\Mocks\Models\Author;
 
 beforeEach(function () {
