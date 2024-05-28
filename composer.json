@@ -7,7 +7,8 @@
         "datatables",
         "filters",
         "sortings",
-        "spatie/laravel-query-builder"
+        "spatie",
+        "laravel-query-builder"
     ],
     "homepage": "https://github.com/teamq-ec/teamq-laravel-datatables",
     "license": "MIT",
