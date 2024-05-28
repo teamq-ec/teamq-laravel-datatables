@@ -46,7 +46,7 @@ trait PerPageQuery
      */
     public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null): LengthAwarePaginator
     {
-        $paramName = config('query-builder.parameters.per_page', 'per_page');
+        $paramName = config('datatables.parameters.per_page', 'per_page');
 
         if ($this->validatePerPageQueryParam($paramName)) {
             $perPage = $this->request->input($paramName);
@@ -108,6 +108,6 @@ trait PerPageQuery
     {
         return
             $this->maxPerPage === null &&
-            $this->request->query($paramName) === config('datatables.per_page.all');
+            $this->request->query($paramName) === config('datatables.per_page.all', 'all');
     }
 }
