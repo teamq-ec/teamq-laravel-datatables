@@ -1,9 +1,9 @@
 # Laravel Datatable API
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/teamq-ec/teamq-laravel-datatables-api.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-datatables-api)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-datatables-api/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-datatables-api/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-datatables-api/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-datatables-api/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/teamq-ec/teamq-laravel-datatables-api.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-datatables-api)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/teamq-ec/teamq-laravel-datatables.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-datatables)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-datatables/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-datatables/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-datatables/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-datatables/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/teamq-ec/teamq-laravel-datatables.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-datatables)
 
 This is a collection of classes for filters and sorts, extending from the [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder) package,
 in addition to providing the possibility of applying these filters and sorting in related models using join through
@@ -14,13 +14,13 @@ from the [kirschbaum-development/eloquent-power-joins](https://github.com/kirsch
 You can install the package via composer:
 
 ```bash
-composer require teamq/laravel-spatie-filters
+composer require teamq/laravel-datatables
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-datatable-api-config"
+php artisan vendor:publish --tag="laravel-datatable-config"
 ```
 
 This is the contents of the published config file:
@@ -51,8 +51,8 @@ below will use `paginate` with the amount provided.
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Filters\TextFilter;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\TextFilter;
 
 $query = QueryBuilder::for(Book::class);
 
@@ -63,10 +63,10 @@ $query->result();
 
 | Filter | Class                                     | Operators |
 |--------|-------------------------------------------|-----------|
-| Text   | `TeamQ\QueryBuilder\Filters\TextFilter`   | Text      |
-| Number | `TeamQ\QueryBuilder\Filters\NumberFilter` | Number    |
-| Date   | `TeamQ\QueryBuilder\Filters\DateFilter`   | Number    |
-| Global | `TeamQ\QueryBuilder\Filters\GlobalFilter` | -         |
+| Text   | `TeamQ\Datatables\Filters\TextFilter`   | Text      |
+| Number | `TeamQ\Datatables\Filters\NumberFilter` | Number    |
+| Date   | `TeamQ\Datatables\Filters\DateFilter`   | Number    |
+| Global | `TeamQ\Datatables\Filters\GlobalFilter` | -         |
 
 <details>
     <summary>Text comparison operators</summary>
@@ -109,7 +109,7 @@ $query->result();
 </details>
 
 You can use advanced filters that have support for multiple comparison operators.
-The available comparison operators are located in `TeamQ\QueryBuilder\Enums\Comparators`
+The available comparison operators are located in `TeamQ\Datatables\Enums\Comparators`
 
 To use these advanced filters, just call them as custom filters:
 
@@ -119,8 +119,8 @@ GET /books?filter[isbn][value]=54213&filter[isbn][operator]=5
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Filters\TextFilter;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\TextFilter;
 
 QueryBuilder::for(Book::class)
         ->allowedFilters([
@@ -133,9 +133,9 @@ and pass the type of `join` to use.
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Filters\TextFilter;
-use TeamQ\QueryBuilder\Enums\JoinType;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\TextFilter;
+use TeamQ\Datatables\Enums\JoinType;
 
 QueryBuilder::for(Book::class)
         ->allowedFilters([
@@ -160,8 +160,8 @@ where lower(`isbn`) like '%54213'
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Filters\TextFilter;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\TextFilter;
 
 QueryBuilder::for(Book::class)
         ->allowedFilters([
@@ -188,8 +188,8 @@ where id in (1, 5, 9)
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Filters\NumberFilter;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\NumberFilter;
 
 QueryBuilder::for(Book::class)
         ->allowedFilters([
@@ -216,8 +216,8 @@ where created_at not between '2019-08-01' and '2019-08-10'
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Filters\DateFilter;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\DateFilter;
 
 QueryBuilder::for(Book::class)
         ->allowedFilters([
@@ -236,8 +236,8 @@ To use this filter, you must pass the model fields to be filtered or their relat
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Filters\GlobalFilter;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Filters\GlobalFilter;
 
 QueryBuilder::for(Book::class)
         ->allowedFilters([
@@ -254,8 +254,8 @@ QueryBuilder::for(Book::class)
 
 | Sort     | Class                                   |
 |----------|-----------------------------------------|
-| Relation | `TeamQ\QueryBuilder\Sorts\RelationSort` |
-| Case     | `TeamQ\QueryBuilder\Sorts\CaseSort`     |
+| Relation | `TeamQ\Datatables\Sorts\RelationSort` |
+| Case     | `TeamQ\Datatables\Sorts\CaseSort`     |
 
 #### _RelationSort_
 
@@ -264,8 +264,8 @@ so you can use `RelationSort`, this class receives the type of `join` as a param
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Sorts\RelationSort;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Sorts\RelationSort;
 
 QueryBuilder::for(Book::class)
         ->allowedSorts([
@@ -285,8 +285,8 @@ related model. By default, it is `Inner Join`.
 
 ```php
 use Spatie\QueryBuilder\AllowedFilter;
-use TeamQ\QueryBuilder\QueryBuilder;
-use TeamQ\QueryBuilder\Sorts\CaseSort;
+use TeamQ\Datatables\QueryBuilder;
+use TeamQ\Datatables\Sorts\CaseSort;
 
 QueryBuilder::for(Book::class)
         ->allowedSorts([

@@ -1,5 +1,5 @@
 {
-    "name": "teamq/laravel-datatables-api",
+    "name": "teamq/laravel-datatables",
     "description": "Custom filter and sorting set for 'spatie/laravel-query-builder' package",
     "keywords": [
         "teamq",
@@ -9,7 +9,7 @@
         "sortings",
         "spatie/laravel-query-builder"
     ],
-    "homepage": "https://github.com/teamq-ec/teamq-laravel-datatables-api",
+    "homepage": "https://github.com/teamq-ec/teamq-laravel-datatables",
     "license": "MIT",
     "authors": [
         {
