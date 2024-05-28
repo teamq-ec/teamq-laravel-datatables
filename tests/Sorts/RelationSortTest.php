@@ -3,9 +3,9 @@
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
-use TeamQ\QueryBuilder\Enums\AggregationType;
-use TeamQ\QueryBuilder\Enums\JoinType;
-use TeamQ\QueryBuilder\Sorts\RelationSort;
+use TeamQ\Datatables\Enums\AggregationType;
+use TeamQ\Datatables\Enums\JoinType;
+use TeamQ\Datatables\Sorts\RelationSort;
 use Tests\Mocks\Enums\BookClassificationEnum;
 use Tests\Mocks\Models\Author;
 use Tests\Mocks\Models\Book;

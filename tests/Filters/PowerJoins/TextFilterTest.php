@@ -3,9 +3,9 @@
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
-use TeamQ\QueryBuilder\Enums\Comparators;
-use TeamQ\QueryBuilder\Enums\JoinType;
-use TeamQ\QueryBuilder\Filters\TextFilter;
+use TeamQ\Datatables\Enums\Comparators;
+use TeamQ\Datatables\Enums\JoinType;
+use TeamQ\Datatables\Filters\TextFilter;
 use Tests\Mocks\Models\Country;
 use Tests\Mocks\Models\Flight;
 

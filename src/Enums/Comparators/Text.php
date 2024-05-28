@@ -1,6 +1,6 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Enums\Comparators;
+namespace TeamQ\Datatables\Enums\Comparators;
 
 /**
  * Text comparison operators.

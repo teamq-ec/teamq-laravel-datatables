@@ -1,12 +1,12 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Sorts;
+namespace TeamQ\Datatables\Sorts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\QueryBuilder\Sorts\Sort;
-use TeamQ\QueryBuilder\Concerns\HasPropertyRelationship;
-use TeamQ\QueryBuilder\Enums\AggregationType;
-use TeamQ\QueryBuilder\Enums\JoinType;
+use TeamQ\Datatables\Concerns\HasPropertyRelationship;
+use TeamQ\Datatables\Enums\AggregationType;
+use TeamQ\Datatables\Enums\JoinType;
 
 /**
  * Adds the possibility to sort by related fields using the kirschbaum-development/eloquent-power-joins.

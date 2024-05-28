@@ -1,13 +1,13 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Sorts;
+namespace TeamQ\Datatables\Sorts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
 use Spatie\QueryBuilder\Sorts\Sort;
-use TeamQ\QueryBuilder\Concerns\HasPropertyRelationship;
-use TeamQ\QueryBuilder\Enums\AggregationType;
-use TeamQ\QueryBuilder\Enums\JoinType;
+use TeamQ\Datatables\Concerns\HasPropertyRelationship;
+use TeamQ\Datatables\Enums\AggregationType;
+use TeamQ\Datatables\Enums\JoinType;
 
 /**
  * Add support for sorting using select case, for cases such as Enums, States, Constants,

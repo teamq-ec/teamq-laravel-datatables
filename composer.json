@@ -1,14 +1,15 @@
 {
-    "name": "teamq/laravel-spatie-filters",
+    "name": "teamq/laravel-datatables-api",
     "description": "Custom filter and sorting set for 'spatie/laravel-query-builder' package",
     "keywords": [
         "teamq",
         "laravel",
+        "datatables",
         "filters",
         "sortings",
         "spatie/laravel-query-builder"
     ],
-    "homepage": "https://github.com/teamq-ec/teamq-laravel-spatie-filters",
+    "homepage": "https://github.com/teamq-ec/teamq-laravel-datatables-api",
     "license": "MIT",
     "authors": [
         {
@@ -31,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "TeamQ\\QueryBuilder\\": "src/"
+            "TeamQ\\Datatables\\": "src/"
         }
     },
     "autoload-dev": {
@@ -55,7 +56,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "TeamQ\\QueryBuilder\\QueryBuilderServiceProvider"
+                "TeamQ\\Datatables\\DatatablesServiceProvider"
             ]
         }
     },

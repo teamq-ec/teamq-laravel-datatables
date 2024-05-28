@@ -1,6 +1,6 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Concerns;
+namespace TeamQ\Datatables\Concerns;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -32,7 +32,7 @@ trait PerPageQuery
      */
     public function result($perPage = null, array $columns = ['*'], string $pageName = 'page', $page = null): Collection|array|LengthAwarePaginator
     {
-        $paramName = config('query-builder.parameters.per_page', 'per_page');
+        $paramName = config('datatables.parameters.per_page', 'per_page');
 
         if ($this->isPerPageAll($paramName)) {
             return $this->get($columns);
@@ -108,6 +108,6 @@ trait PerPageQuery
     {
         return
             $this->maxPerPage === null &&
-            $this->request->query($paramName) === config('teamq-query-builder.per_page.all');
+            $this->request->query($paramName) === config('datatables.per_page.all');
     }
 }

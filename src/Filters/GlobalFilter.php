@@ -1,14 +1,14 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Filters;
+namespace TeamQ\Datatables\Filters;
 
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Filters\Filter;
-use TeamQ\QueryBuilder\Concerns\HasPropertyRelationship;
-use TeamQ\QueryBuilder\Enums\JoinType;
+use TeamQ\Datatables\Concerns\HasPropertyRelationship;
+use TeamQ\Datatables\Enums\JoinType;
 
 /**
  * Adds global filter support through the `spatie/laravel-query-builder` package.

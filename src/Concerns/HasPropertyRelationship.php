@@ -1,6 +1,6 @@
 <?php
 
-namespace TeamQ\QueryBuilder\Concerns;
+namespace TeamQ\Datatables\Concerns;
 
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
