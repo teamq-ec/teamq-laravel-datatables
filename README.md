@@ -1,9 +1,9 @@
 # Laravel Datatable API
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/teamq-ec/teamq-laravel-datatables.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-datatables)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/teamq/laravel-datatables.svg?style=flat-square)](https://packagist.org/packages/teamq/laravel-datatables)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-datatables/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-datatables/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/teamq-ec/teamq-laravel-datatables/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/teamq-ec/teamq-laravel-datatables/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/teamq-ec/teamq-laravel-datatables.svg?style=flat-square)](https://packagist.org/packages/teamq-ec/teamq-laravel-datatables)
+[![Total Downloads](https://img.shields.io/packagist/dt/teamq/laravel-datatables.svg?style=flat-square)](https://packagist.org/packages/teamq/laravel-datatables)
 
 This is a collection of classes for filters and sorts, extending from the [spatie/laravel-query-builder](https://github.com/spatie/laravel-query-builder) package,
 in addition to providing the possibility of applying these filters and sorting in related models using join through
