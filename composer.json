@@ -26,10 +26,12 @@
         "spatie/laravel-query-builder": "^5.2|^6.0"
     },
     "require-dev": {
+        "knuckleswtf/scribe": "^4.37",
         "laravel/pint": "^1.0",
         "orchestra/testbench": "^8.0|^9.0",
         "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0"
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "spatie/invade": "^2.1"
     },
     "autoload": {
         "psr-4": {
