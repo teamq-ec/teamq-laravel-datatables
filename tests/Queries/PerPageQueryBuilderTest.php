@@ -7,7 +7,7 @@ use TeamQ\Datatables\QueryBuilder;
 use Tests\Mocks\Models\Author;
 
 beforeEach(function () {
-    $this->request = new Illuminate\Http\Request();
+    $this->request = new Illuminate\Http\Request;
     $this->request->setMethod(Request::METHOD_GET);
 });
 

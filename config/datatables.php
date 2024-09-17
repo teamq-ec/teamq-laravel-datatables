@@ -1,8 +1,8 @@
 <?php
 
 use Spatie\QueryBuilder;
-use TeamQ\Datatables\Scribe\Strategies\Documentations;
 use TeamQ\Datatables;
+use TeamQ\Datatables\Scribe\Strategies\Documentations;
 
 return [
     'parameters' => [

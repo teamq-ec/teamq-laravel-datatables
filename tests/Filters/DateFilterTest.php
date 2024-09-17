@@ -13,7 +13,7 @@ use Tests\Mocks\Models\Chapter;
 use Tests\Mocks\Models\Country;
 
 beforeEach(function () {
-    $this->request = new Illuminate\Http\Request();
+    $this->request = new Illuminate\Http\Request;
     $this->request->setMethod(Request::METHOD_GET);
 
     $this->firstBook = Book::factory()
@@ -85,7 +85,7 @@ it('does not apply the filter when value is not an array of dates', function () 
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('created_at', new DateFilter()),
+            AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toRawSql())
@@ -106,7 +106,7 @@ it('does not apply the filter if the value is not a date or null', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('created_at', new DateFilter()),
+            AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toRawSql())
@@ -124,7 +124,7 @@ it('apply filter without sub levels (value, operator)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('created_at', new DateFilter()),
+            AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -144,7 +144,7 @@ it('apply filter without sub levels (operator)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('created_at', new DateFilter()),
+            AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -164,7 +164,7 @@ it('apply filter without sub levels (value)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('created_at', new DateFilter()),
+            AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -188,7 +188,7 @@ it('apply filter with multi levels (value)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('created_at', new DateFilter()),
+            AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -209,7 +209,7 @@ it('filters using all date comparison operators', function ($value, $operator, $
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('created_at', new DateFilter()),
+            AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
     $result = $queryBuilder->get();
@@ -242,7 +242,7 @@ it('apply filter on relationships of type "belongsTo"', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('author.created_at', new DateFilter()),
+            AllowedFilter::custom('author.created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -263,7 +263,7 @@ it('apply filter on relationships of type "hasMany"', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('chapters.created_at', new DateFilter()),
+            AllowedFilter::custom('chapters.created_at', new DateFilter),
         ]);
 
     expect($queryBuilder->toSql())

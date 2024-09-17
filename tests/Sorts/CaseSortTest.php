@@ -10,7 +10,7 @@ use Tests\Mocks\Models\Author;
 use Tests\Mocks\Models\Book;
 
 beforeEach(function () {
-    $this->request = new Illuminate\Http\Request();
+    $this->request = new Illuminate\Http\Request;
     $this->request->setMethod(Request::METHOD_GET);
 
     $this->firstBook = Book::factory()

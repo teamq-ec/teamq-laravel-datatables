@@ -10,7 +10,7 @@ use Tests\Mocks\Models\Country;
 use Tests\Mocks\Models\Flight;
 
 beforeEach(function () {
-    $this->request = new Illuminate\Http\Request();
+    $this->request = new Illuminate\Http\Request;
     $this->request->setMethod(Request::METHOD_GET);
 
     $belgium = Country::factory()->create(['name' => 'Belgium', 'code' => 'BE']);

@@ -13,7 +13,7 @@ use Tests\Mocks\Models\Chapter;
 use Tests\Mocks\Models\Country;
 
 beforeEach(function () {
-    $this->request = new Illuminate\Http\Request();
+    $this->request = new Illuminate\Http\Request;
     $this->request->setMethod(Request::METHOD_GET);
 
     $this->firstBook = Book::factory()
@@ -85,7 +85,7 @@ it('does not apply the filter if the value is an array of empty strings', functi
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('isbn', new TextFilter()),
+            AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
     expect($queryBuilder->toRawSql())
@@ -106,7 +106,7 @@ it('does not apply the filter if the value is not a string or null', function ()
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('isbn', new TextFilter()),
+            AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
     expect($queryBuilder->toRawSql())
@@ -124,7 +124,7 @@ it('apply filter without sub levels (value, operator)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('isbn', new TextFilter()),
+            AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -144,7 +144,7 @@ it('apply filter without sub levels (operator)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('isbn', new TextFilter()),
+            AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -164,7 +164,7 @@ it('apply filter without sub levels (value)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('isbn', new TextFilter()),
+            AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -187,7 +187,7 @@ it('apply filter with multi levels (value)', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('isbn', new TextFilter()),
+            AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -208,7 +208,7 @@ it('filters using all text comparison operators', function ($value, $operator, $
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('isbn', new TextFilter()),
+            AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
     $result = $queryBuilder->get();
@@ -243,7 +243,7 @@ it('apply filter on relationships of type "belongsTo"', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('author.email', new TextFilter()),
+            AllowedFilter::custom('author.email', new TextFilter),
         ]);
 
     expect($queryBuilder->toSql())
@@ -264,7 +264,7 @@ it('apply filter on relationships of type "hasMany"', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('chapters.title', new TextFilter()),
+            AllowedFilter::custom('chapters.title', new TextFilter),
         ]);
 
     expect($queryBuilder->toSql())

@@ -25,8 +25,7 @@ class CaseSort implements Sort
         protected array $cases,
         private readonly JoinType $joinType = JoinType::Inner,
         private readonly ?AggregationType $aggregationType = null,
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritDoc}

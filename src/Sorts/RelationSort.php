@@ -23,8 +23,7 @@ class RelationSort implements Sort
         private readonly JoinType $joinType = JoinType::Inner,
         private readonly ?AggregationType $aggregationType = null,
         private readonly array|string|null $joinAliases = null,
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritDoc}
