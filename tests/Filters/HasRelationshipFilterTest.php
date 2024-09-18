@@ -11,7 +11,7 @@ use Tests\Mocks\Models\Chapter;
 use Tests\Mocks\Models\Country;
 
 beforeEach(function () {
-    $this->request = new Illuminate\Http\Request();
+    $this->request = new Illuminate\Http\Request;
     $this->request->setMethod(Request::METHOD_GET);
 
     $this->firstBook = Book::factory()
@@ -72,7 +72,7 @@ it('does not apply the filter if the value is invalid', function () {
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('has_chapters', new HasRelationshipFilter(), 'chapters'),
+            AllowedFilter::custom('has_chapters', new HasRelationshipFilter, 'chapters'),
         ]);
 
     expect($queryBuilder->toRawSql())
@@ -90,7 +90,7 @@ it('applies the "has relationship" filter when the provided value is "1"', funct
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('has_chapters', new HasRelationshipFilter(), 'chapters'),
+            AllowedFilter::custom('has_chapters', new HasRelationshipFilter, 'chapters'),
         ]);
 
     expect($queryBuilder->toSql())
@@ -108,7 +108,7 @@ it('applies the "doesnt have relationship" filter when the provided value is "0"
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
         ->allowedFilters([
-            AllowedFilter::custom('has_chapters', new HasRelationshipFilter(), 'chapters'),
+            AllowedFilter::custom('has_chapters', new HasRelationshipFilter, 'chapters'),
         ]);
 
     expect($queryBuilder->toSql())

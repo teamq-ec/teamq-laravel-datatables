@@ -13,7 +13,7 @@ use Tests\Mocks\Models\Chapter;
 use Tests\Mocks\Models\Country;
 
 beforeEach(function () {
-    $this->request = new Illuminate\Http\Request();
+    $this->request = new Illuminate\Http\Request;
     $this->request->setMethod(Request::METHOD_GET);
 
     $this->firstBook = Book::factory()
