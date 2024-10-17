@@ -16,11 +16,11 @@ class HasRelationshipFilter implements Filter
             return;
         }
 
-        if (intval($value) === 1) {
+        if ((int) $value === 1) {
             $query->whereHas($property);
         }
 
-        if (intval($value) === 0) {
+        if ((int) $value === 0) {
             $query->whereDoesntHave($property);
         }
     }

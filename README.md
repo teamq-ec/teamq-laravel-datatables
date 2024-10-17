@@ -78,40 +78,40 @@ $query->result();
 <details>
     <summary>Text comparison operators</summary>
 
-| Comparison operator | Key |
-|---------------------|-----|
-| Equal               | 1   |
-| Not Equal           | 2   |
-| Start With          | 3   |
-| Not Start With      | 4   |
-| End With            | 5   |
-| Not End With        | 6   |
-| Contains            | 7   |
-| Not Contains        | 8   |
-| In                  | 9   |
-| Not In              | 10  |
-| Filled              | 11  |
-| Not Filled          | 12  |
+| Comparison operator | Key           |
+|---------------------|---------------|
+| Equal               | $eq           |
+| Not Equal           | $notEq        |
+| Start With          | $startWith    |
+| Not Start With      | $notStartWith |
+| End With            | $endWith      |
+| Not End With        | $notEndWith   |
+| Contains            | $contains     |
+| Not Contains        | $notContains  |
+| In                  | $in           |
+| Not In              | $notIn        |
+| Filled              | $filled       |
+| Not Filled          | $notFilled    |
 
 </details>
 
 <details>
     <summary>Number comparison operators</summary>
 
-| Comparison operator   | Key |
-|-----------------------|-----|
-| Equal                 | 1   |
-| Not Equal             | 2   |
-| Greater Than          | 3   |
-| Greater Than Or Equal | 4   |
-| Less Than             | 5   |
-| Less Than Or Equal    | 6   |
-| Between               | 7   |
-| Not Between           | 8   |
-| In                    | 9   |
-| Not In                | 10  |
-| Filled                | 11  |
-| Not Filled            | 12  |
+| Comparison operator   | Key         |
+|-----------------------|-------------|
+| Equal                 | $eq         |
+| Not Equal             | $notEq      |
+| Greater Than          | $gt         |
+| Greater Than Or Equal | $gte        |
+| Less Than             | $lt         |
+| Less Than Or Equal    | $lte        |
+| Between               | $between    |
+| Not Between           | $notBetween |
+| In                    | $in         |
+| Not In                | $notIn      |
+| Filled                | $filled     |
+| Not Filled            | $notFilled  |
 
 </details>
 
@@ -121,7 +121,7 @@ The available comparison operators are located in `TeamQ\Datatables\Enums\Compar
 To use these advanced filters, just call them as custom filters:
 
 ```php
-GET /books?filter[isbn][value]=54213&filter[isbn][operator]=5
+GET /books?filter[isbn][value]=54213&filter[isbn][operator]=$lt
 ```
 
 ```php
@@ -152,11 +152,11 @@ QueryBuilder::for(Book::class)
 
 #### _Text Filter_
 
-The following example uses the comparison operator `5`, which is equivalent to asking if there is a book where
+The following example uses the comparison operator `$like:end`, which is equivalent to asking if there is a book where
 isbn `End With` 54213
 
 ```php
-GET /books?filter[isbn][value]=54213&filter[isbn][operator]=5
+GET /books?filter[isbn][value]=54213&filter[isbn][operator]=$like:end
 ```
 
 ```sql
@@ -178,13 +178,12 @@ QueryBuilder::for(Book::class)
 
 #### _Number Filter_
 
-The following example uses the comparison operator `9`, which is equivalent to asking if there is a book where
-id `In` 1, 5 or 9
+The following example uses the comparison operator `$in` 1, 5 or 9
 
 For this example an array of values was used. Arraying values is supported by all types of operators (text and number).
 
 ```php
-GET /books?filter[id][value][0]=1&filter[id][value][1]=5&filter[id][value][2]=9&filter[id][operator]=9
+GET /books?filter[id][value][0]=1&filter[id][value][1]=5&filter[id][value][2]=9&filter[id][operator]=$in
 ```
 
 ```sql
@@ -206,13 +205,12 @@ QueryBuilder::for(Book::class)
 
 #### _Date Filter_
 
-The following example uses the comparison operator `8`, which is equivalent to asking if there is a book where
-created at `Not Between` 2019-08-01 and 2019-08-10
+The following example uses the comparison operator `$notBetween`, created at 2019-08-01 and 2019-08-10
 
 For this example an array of values was used. Arraying values is supported by all types of operators (text and number).
 
 ```php
-GET /books?filter[created_at][value][0]=2019-08-01&filter[created_at][value][1]=2019-08-10&filter[id][operator]=8
+GET /books?filter[created_at][value][0]=2019-08-01&filter[created_at][value][1]=2019-08-10&filter[created_at][operator]=$notBetween
 ```
 
 ```sql
@@ -274,7 +272,8 @@ QueryBuilder::for(Book::class)
 
 #### _Has Relationship Filter_
 
-This filter accepts two possible values: 
+This filter accepts two possible values:
+
 - `1` to filter by "Has"
 - `0` to filter by "Does not have"
 
@@ -286,7 +285,9 @@ GET /books?filter[has_books]=1
 ```
 
 ```sql
-select * from `authors` where exists (select * from `books` where `authors`.`id` = `books`.`author_id`)
+select *
+from `authors`
+where exists (select * from `books` where `authors`.`id` = `books`.`author_id`)
 ```
 
 ```php
