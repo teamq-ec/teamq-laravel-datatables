@@ -67,10 +67,11 @@ it('the query is formed correctly', function () {
     $query = str(Arr::query($this->request->query()))
         ->replace('%5B', '[')
         ->replace('%5D', ']')
+        ->replace('%24', '$')
         ->value();
 
     expect($query)
-        ->toBe('filter[created_at][value]=2019-08-20&filter[created_at][operator]=1');
+        ->toBe('filter[created_at][value]=2019-08-20&filter[created_at][operator]=$eq');
 });
 
 it('does not apply the filter when value is not an array of dates', function () {

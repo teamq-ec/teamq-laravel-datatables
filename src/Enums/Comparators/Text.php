@@ -7,18 +7,18 @@ namespace TeamQ\Datatables\Enums\Comparators;
  *
  * @author Luis Arce
  */
-enum Text: int
+enum Text: string
 {
-    case Equal = 1;
-    case NotEqual = 2;
-    case StartWith = 3;
-    case NotStartWith = 4;
-    case EndWith = 5;
-    case NotEndWith = 6;
-    case Contains = 7;
-    case NotContains = 8;
-    case In = 9;
-    case NotIn = 10;
-    case Filled = 11;
-    case NotFilled = 12;
+    case Equal = '$eq';
+    case NotEqual = '$notEq';
+    case StartWith = '$like:start';
+    case NotStartWith = '$notLike:start';
+    case EndWith = '$like:end';
+    case NotEndWith = '$notLike:end';
+    case Contains = '$like';
+    case NotContains = '$notLike';
+    case In = '$in';
+    case NotIn = '$notIn';
+    case Filled = '$filled';
+    case NotFilled = '$notFilled';
 }

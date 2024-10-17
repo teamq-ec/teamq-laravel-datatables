@@ -7,18 +7,18 @@ namespace TeamQ\Datatables\Enums\Comparators;
  *
  * @author Luis Arce
  */
-enum Number: int
+enum Number: string
 {
-    case Equal = 1;
-    case NotEqual = 2;
-    case GreaterThan = 3;
-    case GreaterThanOrEqual = 4;
-    case LessThan = 5;
-    case LessThanOrEqual = 6;
-    case Between = 7;
-    case NotBetween = 8;
-    case In = 9;
-    case NotIn = 10;
-    case Filled = 11;
-    case NotFilled = 12;
+    case Equal = '$eq';
+    case NotEqual = '$notEq';
+    case GreaterThan = '$gt';
+    case GreaterThanOrEqual = '$gte';
+    case LessThan = '$lt';
+    case LessThanOrEqual = '$lte';
+    case Between = '$between';
+    case NotBetween = '$notBetween';
+    case In = '$in';
+    case NotIn = '$notIn';
+    case Filled = '$filled';
+    case NotFilled = '$notFilled';
 }
