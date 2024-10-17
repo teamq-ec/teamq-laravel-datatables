@@ -152,11 +152,10 @@ QueryBuilder::for(Book::class)
 
 #### _Text Filter_
 
-The following example uses the comparison operator `$like:end`, which is equivalent to asking if there is a book where
-isbn `End With` 54213
+The following example uses the comparison operator `$endWith` isbn 54213
 
 ```php
-GET /books?filter[isbn][value]=54213&filter[isbn][operator]=$like:end
+GET /books?filter[isbn][value]=54213&filter[isbn][operator]=$endWith
 ```
 
 ```sql
