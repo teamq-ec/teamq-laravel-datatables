@@ -67,10 +67,11 @@ it('the query is formed correctly', function () {
     $query = str(Arr::query($this->request->query()))
         ->replace('%5B', '[')
         ->replace('%5D', ']')
+        ->replace('%24', '$')
         ->value();
 
     expect($query)
-        ->toBe('filter[order][value]=10&filter[order][operator]=1');
+        ->toBe('filter[order][value]=10&filter[order][operator]=$eq');
 });
 
 it('does not apply the filter when value is not an array of numbers', function () {
