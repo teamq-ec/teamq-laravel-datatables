@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## 2.0.1 - 2024-10-18
+
+### What's Changed
+
+* Update documentations by @luilliarcec in https://github.com/teamq-ec/teamq-laravel-datatables/pull/22
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/2.0.0...2.0.1
+
 ## 2.0.0 - 2024-10-17
 
 ### What's Changed
