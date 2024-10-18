@@ -27,7 +27,7 @@ class TextFilter extends Documentation
                     <ul>
                         <li><b>{$name}=Luis</b> It is evaluated by equals.</li>
                         <li><b>{$name}[value]=Luis</b> It is evaluated by equals.</li>
-                        <li><b>{$name}[value]=Luis&{$name}[operator]=5</b> It is evaluated by operator 5 (EndWith).</li>
+                        <li><b>{$name}[value]=Luis&{$name}[operator]=\$endWith</b> It is evaluated by operator EndWith.</li>
                     </ul>
                     Valid comparison operators are:
                     <ul>
