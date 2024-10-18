@@ -27,8 +27,8 @@ class DateFilter extends Documentation
                     <ul>
                         <li><b>{$name}=2023-04-01</b><br>It is evaluated by equals.</li>
                         <li><b>{$name}[value]=2023-04-01</b><br>It is evaluated by equals.</li>
-                        <li><b>{$name}[value]=2023-04-01&{$name}[operator]=5</b><br>It is evaluated by operator 5 (LessThan).</li>
-                        <li><b>{$name}[value][0]=2023-04-01&{$name}[value][1]=2023-07-30&{$name}[operator]=7</b><br>It is evaluated by operator 7 (Between). This operator will only take the first two 'values' however operators like 'In' will take the entire array of 'values'</li>
+                        <li><b>{$name}[value]=2023-04-01&{$name}[operator]=\$lt</b><br>It is evaluated by operator 5 LessThan.</li>
+                        <li><b>{$name}[value][0]=2023-04-01&{$name}[value][1]=2023-07-30&{$name}[operator]=\$between</b><br>It is evaluated by operator Between. This operator will only take the first two 'values' however operators like 'In' will take the entire array of 'values'</li>
                     </ul>
                     Valid comparison operators are:
                     <ul>
