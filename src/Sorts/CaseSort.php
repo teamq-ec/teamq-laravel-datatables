@@ -66,6 +66,12 @@ class CaseSort implements Sort
     {
         $sql = 'case ';
         foreach ($this->cases as $key => $value) {
+            if (is_string($key)) {
+                $sql .= "when {$column} = '{$key}' then '{$value}' ";
+
+                continue;
+            }
+
             $sql .= "when {$column} = {$key} then '{$value}' ";
         }
         $sql .= 'end ';
