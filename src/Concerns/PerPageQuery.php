@@ -52,7 +52,7 @@ trait PerPageQuery
             $perPage = $this->request->input($paramName);
         }
 
-        return parent::paginate($perPage, $columns, $pageName, $page);
+        return parent::paginate($perPage, $columns, $pageName, $page)->appends($this->request->query());
     }
 
     /**
