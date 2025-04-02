@@ -123,7 +123,7 @@ it('returns the links with the URL parameters provided', function () {
 
     expect($queryBuilder->result()->getUrlRange(1, 2))
         ->toBe([
-            1 => "http://localhost?per_page=10&filter%5Bname%5D=Luis%20Arce&filter%5Bcountry_id%5D=5&include=country&sort=-created_at%2Corder&page=1",
-            2 => "http://localhost?per_page=10&filter%5Bname%5D=Luis%20Arce&filter%5Bcountry_id%5D=5&include=country&sort=-created_at%2Corder&page=2",
+            1 => 'http://localhost?per_page=10&filter%5Bname%5D=Luis%20Arce&filter%5Bcountry_id%5D=5&include=country&sort=-created_at%2Corder&page=1',
+            2 => 'http://localhost?per_page=10&filter%5Bname%5D=Luis%20Arce&filter%5Bcountry_id%5D=5&include=country&sort=-created_at%2Corder&page=2',
         ]);
 });
