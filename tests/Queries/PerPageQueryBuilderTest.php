@@ -2,6 +2,9 @@
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedInclude;
+use Spatie\QueryBuilder\AllowedSort;
 use Symfony\Component\HttpFoundation\Request;
 use TeamQ\Datatables\QueryBuilder;
 use Tests\Mocks\Models\Author;
@@ -90,4 +93,37 @@ it('this return a length aware pagination with paginated records when `all` is n
 
     expect($queryBuilder->result())
         ->toBeInstanceOf(LengthAwarePaginator::class);
+});
+
+it('returns the links with the URL parameters provided', function () {
+    $this->request->query->add([
+        'per_page' => '10',
+        'filter' => [
+            'name' => 'Luis Arce',
+            'country_id' => 5,
+        ],
+        'include' => 'country',
+        'sort' => '-created_at,order',
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Author::class, $this->request)
+        ->allowedFilters([
+            AllowedFilter::exact('country_id'),
+            AllowedFilter::partial('name'),
+            AllowedFilter::partial('email'),
+        ])
+        ->allowedSorts([
+            AllowedSort::field('order'),
+            AllowedSort::field('created_at'),
+        ])
+        ->allowedIncludes([
+            AllowedInclude::relationship('country'),
+            AllowedInclude::relationship('books'),
+        ]);
+
+    expect($queryBuilder->result()->getUrlRange(1, 2))
+        ->toBe([
+            1 => "http://localhost?per_page=10&filter%5Bname%5D=Luis%20Arce&filter%5Bcountry_id%5D=5&include=country&sort=-created_at%2Corder&page=1",
+            2 => "http://localhost?per_page=10&filter%5Bname%5D=Luis%20Arce&filter%5Bcountry_id%5D=5&include=country&sort=-created_at%2Corder&page=2",
+        ]);
 });
