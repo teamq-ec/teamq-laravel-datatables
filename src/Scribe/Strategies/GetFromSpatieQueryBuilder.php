@@ -17,6 +17,7 @@ use TeamQ\Datatables\Scribe\Strategies\Resolvers\GetFromFilters;
 use TeamQ\Datatables\Scribe\Strategies\Resolvers\GetFromIncludes;
 use TeamQ\Datatables\Scribe\Strategies\Resolvers\GetFromQueryBuilder;
 use TeamQ\Datatables\Scribe\Strategies\Resolvers\GetFromSorts;
+use Throwable;
 
 /**
  * Adds the possibility of documenting the API from a class that extends `Spatie\QueryBuilder\QueryBuilder`
@@ -78,10 +79,15 @@ class GetFromSpatieQueryBuilder extends Strategy
         }
 
         foreach ($this->properties as $property => $resolver) {
-            // Get properties used in the QueryBuilder.
-            $properties = $queryBuilderReflectionClass
-                ->getProperty($property)
-                ->getValue($queryBuilder);
+            // Prevent error on properties not initialized
+            try {
+                // Get properties used in the QueryBuilder.
+                $properties = $queryBuilderReflectionClass
+                    ->getProperty($property)
+                    ->getValue($queryBuilder);
+            } catch (Throwable $e) {
+                $properties = null;
+            }
 
             if (! $properties instanceof Collection) {
                 continue;
