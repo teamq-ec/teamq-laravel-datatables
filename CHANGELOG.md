@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## 2.1.1 - 2025-04-02
+
+### What's Changed
+
+* fix: prevent-errors-on-properties-no-initialized by @luilliarcec in https://github.com/teamq-ec/teamq-laravel-datatables/pull/28
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/2.1.0...2.1.1
+
 ## 2.1.0 - 2025-03-20
 
 **Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/1.2.0...2.1.0
