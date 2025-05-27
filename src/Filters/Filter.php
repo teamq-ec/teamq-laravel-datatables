@@ -45,6 +45,7 @@ abstract class Filter implements IFilter
         bool $addRelationConstraint = true,
         private readonly ?JoinType $joinType = null,
         private readonly array|string|null $joinAliases = null,
+        private readonly bool $qualify = true,
     ) {
         $this->addRelationConstraint = $addRelationConstraint;
     }
@@ -68,7 +69,9 @@ abstract class Filter implements IFilter
 
         [$value, $operator] = $this->getPayloadData($value);
 
-        $property = $query->qualifyColumn($property);
+        if ($this->qualify) {
+            $property = $query->qualifyColumn($property);
+        }
 
         if (isset($value) || isset($operator)) {
             $value = $this->validate($value, $operator);
