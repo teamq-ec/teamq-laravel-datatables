@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## 3.1.0 - 2025-05-27
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/teamq-ec/teamq-laravel-datatables/pull/30
+* feat: add qualify colum property by @luilliarcec in https://github.com/teamq-ec/teamq-laravel-datatables/pull/31
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/3.0.0...3.1.0
+
 ## 3.0.0 - 2025-04-02
 
 ### What's Changed
