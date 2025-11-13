@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## 3.1.1 - 2025-11-13
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/teamq-ec/teamq-laravel-datatables/pull/33
+* Bump stefanzweifel/git-auto-commit-action from 5 to 7 by @dependabot[bot] in https://github.com/teamq-ec/teamq-laravel-datatables/pull/35
+* Bump actions/checkout from 3 to 5 by @dependabot[bot] in https://github.com/teamq-ec/teamq-laravel-datatables/pull/34
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/3.1.0...3.1.1
+
 ## 3.1.0 - 2025-05-27
 
 ### What's Changed
