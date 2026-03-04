@@ -13,8 +13,8 @@ class GetFromQueryBuilder
     public function __invoke(QueryBuilder $queryBuilder): Collection
     {
         return new Collection([
-            config('query-builder.parameters.per_page') => [
-                'name' => config('query-builder.parameters.per_page'),
+            config('datatables.parameters.per_page') => [
+                'name' => config('datatables.parameters.per_page'),
                 'type' => 'string',
                 'required' => false,
                 'description' => 'Allows you to limit the amount of results per page. The accepted values are:
