@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## v3.1.2 - 2026-03-04
+
+### What's Changed
+
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/teamq-ec/teamq-laravel-datatables/pull/36
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/teamq-ec/teamq-laravel-datatables/pull/37
+* Remove unused script and update parameter references by @luilliarcec in https://github.com/teamq-ec/teamq-laravel-datatables/pull/38
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/3.1.1...3.1.2
+
 ## 3.1.1 - 2025-11-13
 
 ### What's Changed
