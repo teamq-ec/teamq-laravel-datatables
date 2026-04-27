@@ -29,9 +29,14 @@
     "require-dev": {
         "knuckleswtf/scribe": "^4.37",
         "laravel/pint": "^1.0",
+        "mongodb/laravel-mongodb": "^5.0",
         "orchestra/testbench": "^8.0|^9.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0"
+    },
+    "suggest": {
+        "ext-mongodb": "Required to use the MongoDB filter set (TeamQ\\Datatables\\Filters\\Mongo\\*).",
+        "mongodb/laravel-mongodb": "Required to use the MongoDB filter set (TeamQ\\Datatables\\Filters\\Mongo\\*)."
     },
     "autoload": {
         "psr-4": {
