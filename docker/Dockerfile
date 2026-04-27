@@ -9,10 +9,14 @@ WORKDIR /var/www/html/
 
 # Install dependencies
 RUN apk --update add \
-    mysql-client
+    mysql-client \
+    $PHPIZE_DEPS \
+    openssl-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo_mysql \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
 
 ## Copy Laravel application files
 COPY . .

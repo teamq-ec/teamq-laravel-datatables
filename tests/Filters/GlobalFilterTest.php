@@ -271,7 +271,7 @@ it('apply filter on properties and relationships using dynamic power joins', fun
         ->contains('title', $expected)->toBeTrue()
         ->and($queryBuilder->toSql())
         ->toBe(
-            'select `books`.* from `books` inner join `authors` on `books`.`author_id` = `authors`.`id` inner join `countries` on `authors`.`country_id` = `countries`.`id` where (LOWER(`authors`.`name`) LIKE ? or LOWER(`countries`.`name`) LIKE ? or LOWER(`authors`.`name`) LIKE ? or LOWER(`countries`.`name`) LIKE ? or LOWER(`books`.`title`) LIKE ? or LOWER(`books`.`isbn`) LIKE ?)'
+            'select * from `books` inner join `authors` on `books`.`author_id` = `authors`.`id` inner join `countries` on `authors`.`country_id` = `countries`.`id` where (LOWER(`authors`.`name`) LIKE ? or LOWER(`countries`.`name`) LIKE ? or LOWER(`authors`.`name`) LIKE ? or LOWER(`countries`.`name`) LIKE ? or LOWER(`books`.`title`) LIKE ? or LOWER(`books`.`isbn`) LIKE ?)'
         );
 })->with('filters.global');
 

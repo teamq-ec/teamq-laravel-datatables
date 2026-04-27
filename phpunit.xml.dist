@@ -12,7 +12,7 @@
     failOnRisky="true"
     failOnEmptyTestSuite="true"
     beStrictAboutOutputDuringTests="true"
-    cacheDirectory=".phpunit.cache"
+    cacheDirectory="build/.phpunit.cache"
     backupStaticProperties="false"
 >
     <testsuites>
@@ -34,5 +34,8 @@
         <env name="DB_DATABASE" value="testing"/>
         <env name="DB_USERNAME" value="laravel"/>
         <env name="DB_PASSWORD" value="laravel"/>
+        <env name="MONGO_HOST" value="mongo"/>
+        <env name="MONGO_PORT" value="27017"/>
+        <env name="MONGO_DATABASE" value="testing"/>
     </php>
 </phpunit>
