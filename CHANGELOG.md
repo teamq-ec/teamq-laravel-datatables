@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## v3.2.0 - 2026-05-11
+
+### What's Changed
+
+* feat(filters): add MongoDB filter set (SBS-966) by @luilliarcec in https://github.com/teamq-ec/teamq-laravel-datatables/pull/41
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.1.0 by @dependabot[bot] in https://github.com/teamq-ec/teamq-laravel-datatables/pull/40
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/3.1.2...3.2.0
+
 ## v3.1.2 - 2026-03-04
 
 ### What's Changed
