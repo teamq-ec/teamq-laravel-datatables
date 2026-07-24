@@ -57,7 +57,7 @@ it('the query is formed correctly', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed([
                 'author.name',
                 'title',
@@ -86,7 +86,7 @@ it('does not apply the filter if the value is not a string', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed([
                 'author.name',
                 'title',
@@ -107,7 +107,7 @@ it('apply filter on properties model', function ($value, $expected, $count) {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed([
                 'title',
                 'isbn',
@@ -135,7 +135,7 @@ it('apply filter on query expression', function ($value, $expected, $count) {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed([
                 new Expression("CONCAT(books.title, ' - ', books.isbn)"),
             ]),
@@ -162,7 +162,7 @@ it('apply filter on relationships of type "belongsTo"', function ($value, $expec
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['author.name', 'author.email']),
         ]);
 
@@ -187,7 +187,7 @@ it('apply filter on relationships of type "belongsTo" (deep)', function ($value,
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['author.country.name', 'author.country.code']),
         ]);
 
@@ -212,7 +212,7 @@ it('apply filter on relationships of type "hasMany"', function ($value, $expecte
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::query()->with(['author']), $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['chapters.title', 'chapters.number']),
         ]);
 
@@ -241,7 +241,7 @@ it('apply filter on properties and relationships using joins', function ($value,
         ->join('countries', 'countries.id', 'authors.country_id');
 
     $queryBuilder = QueryBuilder::for($query, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['title', 'isbn', 'countries.name', 'authors.name'], false),
         ]);
 
@@ -262,7 +262,7 @@ it('apply filter on properties and relationships using dynamic power joins', fun
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['title', 'isbn', 'author.name', 'author.country.name'], false, JoinType::Inner),
         ]);
 
@@ -283,7 +283,7 @@ it('filter by all properties', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed([
                 'author.name',
                 'title',

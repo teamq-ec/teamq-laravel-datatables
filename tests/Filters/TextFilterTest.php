@@ -84,7 +84,7 @@ it('does not apply the filter if the value is an array of empty strings', functi
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
@@ -105,7 +105,7 @@ it('does not apply the filter if the value is not a string or null', function ()
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
@@ -123,7 +123,7 @@ it('apply filter without sub levels (value, operator)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
@@ -143,7 +143,7 @@ it('apply filter without sub levels (operator)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
@@ -163,7 +163,7 @@ it('apply filter without sub levels (value)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
@@ -186,7 +186,7 @@ it('apply filter with multi levels (value)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
@@ -207,7 +207,7 @@ it('filters using all text comparison operators', function ($value, $operator, $
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
@@ -242,7 +242,7 @@ it('apply filter on relationships of type "belongsTo"', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('author.email', new TextFilter),
         ]);
 
@@ -263,7 +263,7 @@ it('apply filter on relationships of type "hasMany"', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('chapters.title', new TextFilter),
         ]);
 
@@ -284,7 +284,7 @@ it('apply filter on relationships using joins', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::query()->joinRelationship('author'), $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('authors.email', new TextFilter(false)),
         ]);
 
@@ -309,7 +309,7 @@ it('apply filter on relationships using dynamic power joins', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('author.email', new TextFilter(false, JoinType::Inner)),
             AllowedFilter::custom('author.country.name', new TextFilter(false, JoinType::Inner)),
         ]);
@@ -331,7 +331,7 @@ it('filters using all text comparison operators with power joins', function ($va
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('author.email', new TextFilter(false, JoinType::Inner)),
         ]);
 

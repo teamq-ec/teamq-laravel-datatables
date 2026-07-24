@@ -36,7 +36,7 @@ it('apply relationships using aliases that point to the same table', function ()
     ]);
 
     $queryBuilder = QueryBuilder::for(Flight::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('departure.code', new RelationSort(JoinType::Inner, joinAliases: 'departure')),
             AllowedSort::custom('arrival.code', new RelationSort(JoinType::Inner, joinAliases: 'arrival')),
         ]);

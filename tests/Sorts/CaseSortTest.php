@@ -56,7 +56,7 @@ it('sorts the records in ascending order', function () {
         ->toArray();
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('classification', new CaseSort($cases)),
         ]);
 
@@ -81,7 +81,7 @@ it('sorts the records in descending order', function () {
         ->toArray();
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('classification', new CaseSort($cases)),
         ]);
 
@@ -106,7 +106,7 @@ it('sort records by relationship fields', function () {
         ->toArray();
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('author.type', new CaseSort($cases)),
         ]);
 

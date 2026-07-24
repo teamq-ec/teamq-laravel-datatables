@@ -55,7 +55,7 @@ it('does not apply the filter if the value is not a string', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed([
                 'author.name',
                 'title',
@@ -73,7 +73,7 @@ it('applies filter on properties model', function ($value, $expected, $count) {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['title', 'isbn']),
         ]);
 
@@ -94,7 +94,7 @@ it('applies filter on relationships of type "belongsTo"', function ($value, $exp
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['author.name', 'author.email']),
         ]);
 
@@ -115,7 +115,7 @@ it('applies filter on relationships of type "belongsTo" (deep)', function ($valu
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['author.country.name', 'author.country.code']),
         ]);
 
@@ -136,7 +136,7 @@ it('applies filter on relationships of type "hasMany"', function ($value, $expec
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed(['chapters.title']),
         ]);
 
@@ -156,7 +156,7 @@ it('filters by all properties and relationships at once', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             GlobalFilter::allowed([
                 'author.name',
                 'title',

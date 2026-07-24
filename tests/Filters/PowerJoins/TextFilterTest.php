@@ -46,7 +46,7 @@ it('apply relationships using aliases that point to the same table', function ()
     ]);
 
     $queryBuilder = QueryBuilder::for(Flight::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('departure.name', new TextFilter(false, JoinType::Inner, 'departure')),
             AllowedFilter::custom('arrival.name', new TextFilter(false, JoinType::Inner, 'arrival')),
         ]);
