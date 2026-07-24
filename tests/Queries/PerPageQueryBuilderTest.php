@@ -107,16 +107,16 @@ it('returns the links with the URL parameters provided', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Author::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::exact('country_id'),
             AllowedFilter::partial('name'),
             AllowedFilter::partial('email'),
         ])
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::field('order'),
             AllowedSort::field('created_at'),
         ])
-        ->allowedIncludes([
+        ->allowedIncludes(...[
             AllowedInclude::relationship('country'),
             AllowedInclude::relationship('books'),
         ]);

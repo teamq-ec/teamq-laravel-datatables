@@ -85,7 +85,7 @@ it('does not apply the filter when value is not an array of dates', function () 
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -106,7 +106,7 @@ it('does not apply the filter if the value is not a date or null', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -124,7 +124,7 @@ it('apply filter without sub levels (value, operator)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -144,7 +144,7 @@ it('apply filter without sub levels (operator)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -164,7 +164,7 @@ it('apply filter without sub levels (value)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -188,7 +188,7 @@ it('apply filter with multi levels (value)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -209,7 +209,7 @@ it('filters using all date comparison operators', function ($value, $operator, $
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -242,7 +242,7 @@ it('apply filter on relationships of type "belongsTo"', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('author.created_at', new DateFilter),
         ]);
 
@@ -263,7 +263,7 @@ it('apply filter on relationships of type "hasMany"', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('chapters.created_at', new DateFilter),
         ]);
 
@@ -284,7 +284,7 @@ it('apply filter on relationships using joins', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::query()->joinRelationship('author'), $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('authors.created_at', new DateFilter(false)),
         ]);
 
@@ -309,7 +309,7 @@ it('apply filter on relationships using dynamic power joins', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('author.created_at', new DateFilter(false, JoinType::Inner)),
             AllowedFilter::custom('author.country.created_at', new DateFilter(false, JoinType::Inner)),
         ]);
@@ -331,7 +331,7 @@ it('filters using all number comparison operators with power joins', function ($
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('author.created_at', new DateFilter(false, JoinType::Inner)),
         ]);
 

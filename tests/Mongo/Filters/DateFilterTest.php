@@ -58,7 +58,7 @@ it('does not apply the filter when value is not an array of dates', function () 
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -76,7 +76,7 @@ it('does not apply the filter if the value is not a date or null', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -91,7 +91,7 @@ it('applies filter without sub levels (value, operator)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -110,7 +110,7 @@ it('applies filter without sub levels (operator)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -129,7 +129,7 @@ it('applies filter without sub levels (value)', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -147,7 +147,7 @@ it('filters using all date comparison operators', function ($value, $operator, $
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('created_at', new DateFilter),
         ]);
 
@@ -180,7 +180,7 @@ it('applies filter on relationships of type "belongsTo"', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('author.created_at', new DateFilter),
         ]);
 
@@ -200,7 +200,7 @@ it('applies filter on relationships of type "hasMany"', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('chapters.created_at', new DateFilter),
         ]);
 

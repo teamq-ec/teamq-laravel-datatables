@@ -42,7 +42,7 @@ it('does not apply the filter if the value is invalid', function () {
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('has_chapters', new HasRelationshipFilter, 'chapters'),
         ]);
 
@@ -57,7 +57,7 @@ it('applies the "has relationship" filter when the provided value is "1"', funct
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('has_chapters', new HasRelationshipFilter, 'chapters'),
         ]);
 
@@ -74,7 +74,7 @@ it('applies the "doesnt have relationship" filter when the provided value is "0"
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedFilters([
+        ->allowedFilters(...[
             AllowedFilter::custom('has_chapters', new HasRelationshipFilter, 'chapters'),
         ]);
 

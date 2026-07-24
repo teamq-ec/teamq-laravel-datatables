@@ -61,7 +61,7 @@ it('sort the records in ascending order using the "BelongTo" relationship', func
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('author.name', new RelationSort(JoinType::Inner)),
         ]);
 
@@ -78,7 +78,7 @@ it('sort the records in descending order using the "BelongTo" relationship', fun
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('author.name', new RelationSort(JoinType::Inner)),
         ]);
 
@@ -95,7 +95,7 @@ it('sort the records in ascending order using the "BelongTo" relationship (deep 
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('author.country.name', new RelationSort(JoinType::Inner)),
         ]);
 
@@ -112,7 +112,7 @@ it('sort the records in descending order using the "BelongTo" relationship (deep
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('author.country.name', new RelationSort(JoinType::Inner)),
         ]);
 
@@ -129,7 +129,7 @@ it('sort the records in ascending order using the "HasMany" relationship with ag
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('chapters.number', new RelationSort(JoinType::Left, AggregationType::Sum)),
         ]);
 
@@ -146,7 +146,7 @@ it('sort the records in descending order using the "HasMany" relationship with a
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('chapters.number', new RelationSort(JoinType::Left, AggregationType::Sum)),
         ]);
 
@@ -163,7 +163,7 @@ it('sort the records in descending order using the "HasMany" relationship with a
     ]);
 
     $queryBuilder = QueryBuilder::for(Book::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('chapters.number',
                 new RelationSort(JoinType::Left, AggregationType::Sum, 'chapters_alias')
             ),
@@ -184,7 +184,7 @@ it('sort the records in descending order using the multiple relationship aliases
     ]);
 
     $queryBuilder = QueryBuilder::for(Country::class, $this->request)
-        ->allowedSorts([
+        ->allowedSorts(...[
             AllowedSort::custom('authors.books.order',
                 new RelationSort(JoinType::Inner, joinAliases: [
                     'authors' => fn ($join) => $join->as('authors_alias'),
