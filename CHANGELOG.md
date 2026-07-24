@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## v4.0.0 - 2026-07-24
+
+### What's Changed
+
+Support for **spatie/laravel-query-builder ^7** — the constraint now allows `^6.0|^7.0`, unblocking projects already on v7 (RUDY V2 backend).
+
+- Production code (`src/`) unchanged: the `Filter`/`Sort` interfaces already declare the `: void` return type v7 requires.
+- Test allow-lists migrated to the spread operator (`allowedFilters(...[...])`), compatible with both v6 and v7.
+- Green across the matrix: PHP 8.4/8.5 × Laravel 12/13.
+
+PRs: #43 (query-builder ^7 support).
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/3.2.0...4.0.0
+
 ## v3.2.0 - 2026-05-11
 
 ### What's Changed
