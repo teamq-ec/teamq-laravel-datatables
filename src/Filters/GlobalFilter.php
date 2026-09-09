@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\Filters\Filter;
+use TeamQ\Datatables\Concerns\EscapesLikeTerms;
 use TeamQ\Datatables\Concerns\HasPropertyRelationship;
 use TeamQ\Datatables\Enums\JoinType;
 
@@ -19,6 +20,7 @@ use TeamQ\Datatables\Enums\JoinType;
  */
 class GlobalFilter implements Filter
 {
+    use EscapesLikeTerms;
     use HasPropertyRelationship;
 
     protected readonly array $fields;
@@ -201,9 +203,14 @@ class GlobalFilter implements Filter
      */
     protected function getWhereRawParameters(string $property, mixed $value): array
     {
+        // The term is escaped, the `%` around it is not: what makes this a
+        // substring search is the filter's business, and what the caller typed
+        // is a literal. See EscapesLikeTerms.
+        $term = $this->escapeLikeTerm((string) $value);
+
         return [
             "LOWER({$property}) LIKE ?",
-            ["%{$value}%"],
+            ["%{$term}%"],
         ];
     }
 

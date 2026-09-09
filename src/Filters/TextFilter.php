@@ -2,6 +2,7 @@
 
 namespace TeamQ\Datatables\Filters;
 
+use TeamQ\Datatables\Concerns\EscapesLikeTerms;
 use TeamQ\Datatables\Enums\Comparators;
 
 /**
@@ -13,6 +14,8 @@ use TeamQ\Datatables\Enums\Comparators;
  */
 class TextFilter extends Filter
 {
+    use EscapesLikeTerms;
+
     /**
      * Operators that receive values as arrays or should be filtered as an array.
      * Ex: In, NotIn, Between, etc.
@@ -54,27 +57,34 @@ class TextFilter extends Filter
     {
         $field = $query->getQuery()->getGrammar()->wrap($property);
 
+        // Every branch below that compares with LIKE searches for the value as
+        // itself — `$eq` included, which is a whole-value comparison and not a
+        // pattern, the way the Mongo filter has always anchored it. `$in` and
+        // `$notIn` are a `whereIn` and are left alone: escaping there would
+        // send the backslashes to the database as part of what is compared.
+        $term = is_string($value) ? $this->escapeLikeTerm($value) : $value;
+
         match ($operator) {
             Comparators\Text::Equal => $query
-                ->whereRaw("lower({$field}) like ?", [$value], $boolean),
+                ->whereRaw("lower({$field}) like ?", [$term], $boolean),
 
             Comparators\Text::NotEqual => $query
-                ->whereRaw("lower({$field}) not like ?", [$value], $boolean),
+                ->whereRaw("lower({$field}) not like ?", [$term], $boolean),
 
             Comparators\Text::StartWith => $query
-                ->whereRaw("lower({$field}) like ?", ["$value%"], $boolean),
+                ->whereRaw("lower({$field}) like ?", ["{$term}%"], $boolean),
 
             Comparators\Text::NotStartWith => $query
-                ->whereRaw("lower({$field}) not like ?", ["$value%"], $boolean),
+                ->whereRaw("lower({$field}) not like ?", ["{$term}%"], $boolean),
 
             Comparators\Text::EndWith => $query
-                ->whereRaw("lower({$field}) like ?", ["%$value"], $boolean),
+                ->whereRaw("lower({$field}) like ?", ["%{$term}"], $boolean),
 
             Comparators\Text::NotEndWith => $query
-                ->whereRaw("lower({$field}) not like ?", ["%$value"], $boolean),
+                ->whereRaw("lower({$field}) not like ?", ["%{$term}"], $boolean),
 
             Comparators\Text::NotContains => $query
-                ->whereRaw("lower({$field}) not like ?", ["%$value%"], $boolean),
+                ->whereRaw("lower({$field}) not like ?", ["%{$term}%"], $boolean),
 
             Comparators\Text::In => $query
                 ->whereIn($property, $value, $boolean),
@@ -89,7 +99,7 @@ class TextFilter extends Filter
                 ->whereNull($property, $boolean),
 
             default => $query
-                ->whereRaw("lower({$field}) like ?", ["%$value%"], $boolean),
+                ->whereRaw("lower({$field}) like ?", ["%{$term}%"], $boolean),
         };
     }
 

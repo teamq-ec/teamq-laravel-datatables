@@ -2,6 +2,33 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## Unreleased
+
+### Fixed — a term is matched as a literal (**behavioural**)
+
+`GlobalFilter` and `TextFilter` pasted the caller's term into the `LIKE` binding with the two
+characters the comparison reserves still live: `_` matched any single character and `%` any run of
+them. A term carrying either searched for more than it said — `k_w@example.com` also answered with
+`k.w@example.com` and with every `kXw@…`, and `%` on its own answered with the whole table. Both now
+escape `%`, `_` and the escape character itself before the term becomes a binding.
+
+`$eq` and `$notEq` compare the **whole value** as a result, which is what their name promises. They
+were compiled as a `LIKE` with the bare value, so an underscore in the value made them answer rows
+that are not equal to what was asked for. The Mongo filters have always anchored `$eq` (`^…$` over
+`preg_quote`) and have never had the defect; this is the SQL half catching up.
+
+`$in` and `$notIn` are untouched — they are a `whereIn` and already compare exactly, and escaping
+them would send the backslashes to the database as part of the value.
+
+The surrounding `%` of `$contains` and of the global filter stays: what it makes is a substring
+search, and that is the filter's own doing rather than the caller's term.
+
+Escaping relies on the backslash being `LIKE`'s default escape character, which holds on MySQL and
+PostgreSQL. No `ESCAPE` clause is emitted: the clause takes a string literal that the two engines
+spell differently, so saying it is less portable than not saying it.
+
+Found from teamq-ec/rudy-api-V2.0#450.
+
 ## v4.0.0 - 2026-07-24
 
 ### What's Changed

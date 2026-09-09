@@ -93,6 +93,12 @@ $query->result();
 | Filled              | $filled       |
 | Not Filled          | $notFilled    |
 
+A text filter matches the value it is given as a **literal**: `%` and `_`, the two characters `LIKE`
+reserves, stand for themselves and are not wildcards. `$eq` and `$notEq` compare the whole value,
+case-insensitively; `$contains`, `$startWith` and `$endWith` anchor it where their name says and
+leave the rest of the column free. Escaping relies on the backslash being `LIKE`'s default escape
+character, which holds on MySQL and PostgreSQL.
+
 </details>
 
 <details>
