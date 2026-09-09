@@ -2,6 +2,34 @@
 
 All notable changes to `laravel-query-builder-powered` will be documented in this file.
 
+## v4.1.0 - 2026-09-09
+
+### What's Changed
+
+**A filter term is matched as a literal.** `GlobalFilter` and `TextFilter` pasted the caller's term into the `LIKE` binding with the two characters the comparison reserves still live — `_` for any single character, `%` for any run of them — so a term carrying either searched for more than it said. `k_w@example.com` also answered with `k.w@example.com` and with every `kXw@…`, and `%` on its own answered with the whole table. Both now escape `%`, `_` and the escape character itself before the term becomes a binding (`TeamQ\Datatables\Concerns\EscapesLikeTerms`).
+
+**`$eq` and `$notEq` compare the whole value**, which is what their name promises. They were compiled as a `LIKE` with the bare value, so an underscore in it made them answer rows that are not equal to what was asked for. The Mongo filters have always anchored `$eq` (`^…$` over `preg_quote`) and never had the defect: this is the SQL half catching up with what the package already promised in its other grammar.
+
+**`$in` and `$notIn` are untouched.** They are a `whereIn`, they already compare exactly, and escaping them would send the backslashes to the database as part of the value.
+
+The surrounding `%` of `$contains` and of the global filter stays: what it makes is a substring search, and that is the filter's own doing rather than the caller's term.
+
+#### Upgrading
+
+This is **behavioural**, hence a minor and not a patch. A caller that has been passing a pattern to a text filter or to `$eq` on purpose loses that; every filter that was given a plain value answers as it did, minus the rows it should never have returned.
+
+Escaping relies on the backslash being `LIKE`'s default escape character, which holds on MySQL and PostgreSQL. No `ESCAPE` clause is emitted: the clause takes a string literal that the two engines spell differently, so saying it is less portable than not saying it. A driver with no default — SQLite, SQL Server — would need it named per grammar; that is written down in the trait rather than left to be rediscovered.
+
+#### Verified
+
+The tests land in their own commit ahead of the fix, and that commit's CI is **red against a real MySQL** (`Failed asserting that 2 is identical to 1` on the text comparisons and on the global filter, `3 is identical to 1` on the bare `%`). The fix turns the matrix green: PHP 8.4/8.5 × Laravel 12/13.
+
+* fix(filters): a term is matched as a literal, and `$eq` compares whole by @luilliarcec in https://github.com/teamq-ec/teamq-laravel-datatables/pull/44
+
+Found from teamq-ec/rudy-api-V2.0#450.
+
+**Full Changelog**: https://github.com/teamq-ec/teamq-laravel-datatables/compare/4.0.0...4.1.0
+
 ## v4.0.0 - 2026-07-24
 
 ### What's Changed
