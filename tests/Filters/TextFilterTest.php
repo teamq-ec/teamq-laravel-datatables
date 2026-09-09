@@ -386,18 +386,18 @@ it('matches the value of a text comparison as a literal', function (Comparators\
     'equal' => [Comparators\Text::Equal, 'a_b123'],
 ]);
 
-it('compares an "equal" value whole, the way its name says', function (): void {
-    // `$eq` is compiled as a LIKE with the bare value, so an underscore in it
-    // used to match any character and the filter answered rows that are not
-    // equal to what was asked for. The Mongo half of this package has always
-    // anchored `$eq` (`^…$` with `preg_quote`); this is the SQL half catching up.
+it('keeps "equal" whole and case-insensitive', function (string $value, int $count): void {
+    // What escaping changes about `$eq` is proved by the `equal` dataset above,
+    // which is red without it. These two are the properties it must NOT change
+    // and nothing else pins: `$eq` compares the whole column, so a fragment of
+    // a value finds nothing, and it goes on ignoring case.
     Book::factory()->create(['isbn' => 'A_B123', 'order' => '15']);
     Book::factory()->create(['isbn' => 'AXB123', 'order' => '20']);
 
     $this->request->query->add([
         'filter' => [
             'isbn' => [
-                'value' => 'axb123',
+                'value' => $value,
                 'operator' => Comparators\Text::Equal->value,
             ],
         ],
@@ -408,11 +408,12 @@ it('compares an "equal" value whole, the way its name says', function (): void {
             AllowedFilter::custom('isbn', new TextFilter),
         ]);
 
-    // Still case-insensitive, and still only the row that carries that value.
-    expect($queryBuilder->get())
-        ->count()->toBe(1)
-        ->contains('isbn', 'AXB123')->toBeTrue();
-});
+    expect($queryBuilder->get())->count()->toBe($count);
+})->with([
+    // Value | Rows it may answer with
+    'a fragment is not equal to the whole' => ['b123', 0],
+    'the case does not matter' => ['axb123', 1],
+]);
 
 it('leaves the values of "in" alone, which compare exactly already', function (): void {
     // `$in`/`$notIn` are a `whereIn`, not a LIKE. Escaping them would send the
