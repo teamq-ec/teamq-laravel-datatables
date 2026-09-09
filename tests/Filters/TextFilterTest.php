@@ -354,3 +354,89 @@ it('filters using all text comparison operators with power joins', function ($va
         expect($result)->contains('author.email', $expected)->toBeTrue();
     }
 })->with('filters.text:author.email');
+
+it('matches the value of a text comparison as a literal', function (Comparators\Text $operator, string $value): void {
+    // The same characters LIKE reserves, on the per-column filter. `US5895421369`
+    // and `BE758952123` come from the beforeEach and hold neither.
+    Book::factory()->create(['isbn' => 'A_B123', 'order' => '15']);
+    Book::factory()->create(['isbn' => 'AXB123', 'order' => '20']);
+
+    $this->request->query->add([
+        'filter' => [
+            'isbn' => [
+                'value' => $value,
+                'operator' => $operator->value,
+            ],
+        ],
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Book::class, $this->request)
+        ->allowedFilters(...[
+            AllowedFilter::custom('isbn', new TextFilter),
+        ]);
+
+    expect($queryBuilder->get())
+        ->count()->toBe(1)
+        ->contains('isbn', 'A_B123')->toBeTrue();
+})->with([
+    // Operator | Value
+    'contains' => [Comparators\Text::Contains, 'a_b'],
+    'starts with' => [Comparators\Text::StartWith, 'a_b'],
+    'ends with' => [Comparators\Text::EndWith, '_b123'],
+    'equal' => [Comparators\Text::Equal, 'a_b123'],
+]);
+
+it('keeps "equal" whole and case-insensitive', function (string $value, int $count): void {
+    // What escaping changes about `$eq` is proved by the `equal` dataset above,
+    // which is red without it. These two are the properties it must NOT change
+    // and nothing else pins: `$eq` compares the whole column, so a fragment of
+    // a value finds nothing, and it goes on ignoring case.
+    Book::factory()->create(['isbn' => 'A_B123', 'order' => '15']);
+    Book::factory()->create(['isbn' => 'AXB123', 'order' => '20']);
+
+    $this->request->query->add([
+        'filter' => [
+            'isbn' => [
+                'value' => $value,
+                'operator' => Comparators\Text::Equal->value,
+            ],
+        ],
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Book::class, $this->request)
+        ->allowedFilters(...[
+            AllowedFilter::custom('isbn', new TextFilter),
+        ]);
+
+    expect($queryBuilder->get())->count()->toBe($count);
+})->with([
+    // Value | Rows it may answer with
+    'a fragment is not equal to the whole' => ['b123', 0],
+    'the case does not matter' => ['axb123', 1],
+]);
+
+it('leaves the values of "in" alone, which compare exactly already', function (): void {
+    // `$in`/`$notIn` are a `whereIn`, not a LIKE. Escaping them would send the
+    // backslashes to the database as part of the value being compared, and the
+    // row that does carry the underscore would stop answering.
+    Book::factory()->create(['isbn' => 'A_B123', 'order' => '15']);
+    Book::factory()->create(['isbn' => 'AXB123', 'order' => '20']);
+
+    $this->request->query->add([
+        'filter' => [
+            'isbn' => [
+                'value' => ['A_B123'],
+                'operator' => Comparators\Text::In->value,
+            ],
+        ],
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Book::class, $this->request)
+        ->allowedFilters(...[
+            AllowedFilter::custom('isbn', new TextFilter),
+        ]);
+
+    expect($queryBuilder->get())
+        ->count()->toBe(1)
+        ->contains('isbn', 'A_B123')->toBeTrue();
+});

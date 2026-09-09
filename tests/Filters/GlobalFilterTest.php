@@ -303,3 +303,55 @@ it('filter by all properties', function () {
             'select * from `books` where (exists (select * from `authors` where `books`.`author_id` = `authors`.`id` and (LOWER(`authors`.`name`) LIKE ? or LOWER(`authors`.`email`) LIKE ? or exists (select * from `countries` where `authors`.`country_id` = `countries`.`id` and (LOWER(`countries`.`name`) LIKE ? or LOWER(`countries`.`code`) LIKE ?)))) or exists (select * from `chapters` where `books`.`id` = `chapters`.`book_id` and (LOWER(`chapters`.`title`) LIKE ?)) or LOWER(`books`.`title`) LIKE ? or LOWER(`books`.`isbn`) LIKE ?)'
         );
 });
+
+it('matches a term as a literal and not as a LIKE pattern', function (string $term, string $expected): void {
+    // `_` stands for any single character in a LIKE pattern and `%` for any run
+    // of them. A search box is not a pattern language: what is typed into it is
+    // read off a row and pasted back, and an underscore is ordinary in an
+    // e-mail address, a slug or an identifier.
+    Book::factory()->create(['title' => 'Refactoring_Legacy', 'isbn' => 'LIT0000001']);
+    Book::factory()->create(['title' => 'RefactoringXLegacy', 'isbn' => 'LIT0000002']);
+    Book::factory()->create(['title' => 'C:\Books', 'isbn' => 'LIT0000003']);
+    Book::factory()->create(['title' => 'C:XBooks', 'isbn' => 'LIT0000004']);
+
+    $this->request->query->add([
+        'filter' => [
+            'global' => $term,
+        ],
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Book::class, $this->request)
+        ->allowedFilters(...[
+            GlobalFilter::allowed(['title']),
+        ]);
+
+    expect($queryBuilder->get())
+        ->count()->toBe(1)
+        ->contains('title', $expected)->toBeTrue();
+})->with([
+    // Term | The one row it may answer with
+    'an underscore stands for itself' => ['refactoring_legacy', 'Refactoring_Legacy'],
+    'the escape character stands for itself' => ['c:\Books', 'C:\Books'],
+]);
+
+it('answers a term of nothing but a wildcard with the rows that carry it', function (): void {
+    // On its own, `%` used to be the term that matched every row in the table:
+    // the pattern became `%%%`. It is a character, and only the row holding one
+    // answers to it.
+    Book::factory()->create(['title' => '100% Coverage', 'isbn' => 'LIT0000005']);
+
+    $this->request->query->add([
+        'filter' => [
+            'global' => '%',
+        ],
+    ]);
+
+    $queryBuilder = QueryBuilder::for(Book::class, $this->request)
+        ->allowedFilters(...[
+            GlobalFilter::allowed(['title']),
+        ]);
+
+    expect($queryBuilder->get())
+        ->count()->toBe(1)
+        ->contains('title', '100% Coverage')->toBeTrue();
+});
